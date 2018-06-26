@@ -71,12 +71,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="content">
-        <img
-          src="/logo.png"
-          className="logo"
-          alt="Generation Blockchain Logo"
-        />
+      <div>
+        <a href="https://generationblockchain.io">
+          <img
+            src="/logo.png"
+            className="Logo"
+            alt="Generation Blockchain Logo"
+          />
+        </a>
 
         {this.state.flagSelected ? (
           <Overdrive id="back">
@@ -106,9 +108,7 @@ class App extends Component {
             {this.state.flagSelected ? (
               <div className="genb-confirm">
                 <div className="pure-u-1-2">
-                  <Overdrive id={this.state.flagSelected} duration={400}>
-                    
-                  </Overdrive>
+                  <Overdrive id={this.state.flagSelected} duration={400} />
                 </div>
                 <div className="pure-u-1-2">
                   <div className="genb-amount" style={{ color: 'white' }}>

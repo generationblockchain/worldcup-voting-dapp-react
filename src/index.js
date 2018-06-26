@@ -8,8 +8,8 @@ import './index.css'
 
 render(
   <main>
-    <Particles />
     <App />
+    <Particles />
   </main>,
   document.getElementById('root')
 )

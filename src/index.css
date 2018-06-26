@@ -18,14 +18,13 @@ main {
   );
 }
 
-.content {
-  position: relative;
-}
-
-.logo {
+.Logo {
+  z-index: 1;
   width: 250px;
+  cursor: pointer;
   margin-top: 50px;
   margin-left: 50px;
+  position: relative;
 }
 
 .genb-back {
@@ -53,12 +52,14 @@ main {
 }
 
 .FlagList {
+  z-index: 1;
   padding: 0;
   display: flex;
   margin: 0 auto;
   flex-wrap: wrap;
   max-width: 980px;
   list-style: none;
+  position: relative;
   text-align: center;
   justify-content: start;
 }
