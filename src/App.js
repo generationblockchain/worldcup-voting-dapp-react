@@ -73,7 +73,13 @@ class App extends Component {
   render() {
     return (
       <div className="pure-g genb-content">
-        <div className="pure-u-1-1">LOGO</div>
+        <div className="pure-u-1-1">
+          <img
+            className="genb-logo"
+            alt="Generation Blockchain Logo"
+            src="https://generationblockchain.io/public/img/WhiteOrange_Vertical.png"
+          />
+        </div>
 
         <div className="pure-u-1-1">
           <div className="genb-question">
@@ -86,22 +92,26 @@ class App extends Component {
           <div className="pure-u-2-3">
             {this.state.flagSelected ? (
               <div className="genb-confirm">
-                <div className="pure-u-1-2 genb-flag">
-                  <Overdrive id={this.state.flagSelected} duration={400}>
-                    <FlagIcon code={this.state.flagSelected} size={512} />
+                <div className="pure-u-1-2">
+                  <Overdrive id={this.state.flagSelected} duration={300}>
+                    <div className="genb-flag">
+                      <FlagIcon code={this.state.flagSelected} size={512} />
+                    </div>
                   </Overdrive>
                 </div>
               </div>
             ) : (
               <div className="genb-select">
                 {flags.map(flag => (
-                  <div key={flag} className="pure-u-1-4 genb-flag">
+                  <div key={flag} className="pure-u-1-4">
                     <Overdrive id={flag} key={flag}>
-                      <FlagIcon
-                        size={256}
-                        code={flag}
-                        onClick={() => this.selectFlag(flag)}
-                      />
+                      <div className="genb-flag">
+                        <FlagIcon
+                          size={128}
+                          code={flag}
+                          onClick={() => this.selectFlag(flag)}
+                        />
+                      </div>
                     </Overdrive>
                   </div>
                 ))}

@@ -1,16 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Abel');
-
 /* PAGE */
 
 body,
 .pure-g [class*='pure-u'] {
-  font-family: 'Abel', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-family: 'Open Sans', 'Arial Narrow', sans-serif;
 }
 
 code {
@@ -39,14 +37,13 @@ code {
   height: 100vh;
   box-sizing: border-box;
   background-image: linear-gradient(
-    to bottom,
-    #fdc830,
-    #ffb327,
-    #ff9d26,
-    #ff862a,
-    #ff6f31
+    to left top,
+    #ff6f31,
+    #e54d77,
+    #9c5597,
+    #4e5686,
+    #2f4858
   );
-  padding: 45px 20px;
 }
 
 .genb-particles {
@@ -61,12 +58,27 @@ code {
   position: relative;
 }
 
+.genb-logo {
+  width: 250px;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
 .genb-question {
+  color: #ff6f31;
+  font-size: 1.5rem;
   text-align: center;
 }
 
 .genb-flag {
   text-align: center;
-  padding-top: 2.5em;
+  margin: 1em;
+  border-radius: 10px;
   padding-bottom: 2.5em;
+  border: 3px solid #ededed47;
+}
+
+.genb-flag:hover {
+  background: #ffffff26;
+  border: 3px solid #ffffff80;
 }
