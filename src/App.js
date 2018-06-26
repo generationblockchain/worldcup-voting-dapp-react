@@ -23,6 +23,10 @@ class App extends Component {
     }
   }
 
+  selectFlag(flag) {
+    this.setState({ flagSelected: flag })
+  }
+
   componentWillMount() {
     // Get network provider and web3 instance.
     // See utils/getWeb3 for more info.
@@ -79,28 +83,30 @@ class App extends Component {
             <div className="pure-u-1-1">LOGO</div>
 
             <div className="pure-u-1-1">
-              <div className="pure-u-1-6" />
-              <div className="pure-u-2-3">
-                {flags.map(flag => (
-                  <div key={flag} className="pure-u-1-4 genb-flag">
-                    <FlagIcon code={flag} size={256} />
-                  </div>
-                ))}
-              </div>
-              <div className="pure-u-1-6" />
-
               {this.state.flagSelected ? (
-                <Overdrive id="content">
-                  <div>
-                    <FlagIcon code="IN" size={96} />
-                  </div>
-                </Overdrive>
+                <div style={{ position: 'fixed', right: '5px' }}>
+                  <Overdrive id={this.state.flagSelected}>
+                    <FlagIcon code={this.state.flagSelected} size={96} />
+                  </Overdrive>
+                </div>
               ) : (
-                <Overdrive id="content">
-                  <div style={{ position: 'fixed', right: '5px' }}>
-                    <FlagIcon code="US" size={96} />
+                <div>
+                  <div className="pure-u-1-6" />
+                  <div className="pure-u-2-3">
+                    {flags.map(flag => (
+                      <div
+                        key={flag}
+                        className="pure-u-1-4 genb-flag"
+                        onClick={() => this.selectFlag(flag)}
+                      >
+                        <Overdrive id={flag} key={flag}>
+                          <FlagIcon code={flag} size={256} />
+                        </Overdrive>
+                      </div>
+                    ))}
                   </div>
-                </Overdrive>
+                  <div className="pure-u-1-6" />
+                </div>
               )}
             </div>
           </div>
