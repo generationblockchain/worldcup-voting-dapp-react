@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
 /* PAGE */
 
 body,
 .pure-g [class*='pure-u'] {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Abel', sans-serif;
 }
 
 h1,
@@ -47,10 +49,27 @@ code {
 
 /* Generation Blockchain */
 
+.genb-content {
+  position: relative;
+}
+
 .genb-flag {
+  text-align: center;
   padding-top: 2.5em;
   padding-bottom: 2.5em;
+}
+
+.genb-question {
   text-align: center;
+}
+
+.genb-particles {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  position: fixed;
 }
 
 /* NAVBAR */

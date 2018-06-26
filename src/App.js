@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { FlagIcon } from 'react-flag-kit'
 import Overdrive from 'react-overdrive'
+import Particles from 'react-particles-js'
 
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 // import getWeb3 from './utils/getWeb3'
+
+import particlesjsConfig from '../particlesjs-config.json'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -79,8 +82,16 @@ class App extends Component {
     return (
       <div className="App">
         <main className="container">
-          <div className="pure-g">
+          <Particles style={{ position: 'fixed' }} params={particlesjsConfig} />
+
+          <div className="pure-g genb-content">
             <div className="pure-u-1-1">LOGO</div>
+
+            <div className="pure-u-1-1">
+              <div className="genb-question">
+                <h2>Which team would you like to bid for?</h2>
+              </div>
+            </div>
 
             <div className="pure-u-1-1">
               {this.state.flagSelected ? (
