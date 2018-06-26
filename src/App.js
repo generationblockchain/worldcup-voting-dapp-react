@@ -18,6 +18,10 @@ class App extends Component {
     }
   }
 
+  removeFlag = () => {
+    this.setState({ flagSelected: '' })
+  }
+
   selectFlag(flag) {
     this.setState({ flagSelected: flag })
   }
@@ -82,9 +86,9 @@ class App extends Component {
         </div>
 
         {this.state.flagSelected ? (
-          <div className="genb-back">
+          <div className="genb-back" onClick={this.removeFlag}>
             <Overdrive id="back">
-              <div className="genb-back-show">BACK</div>
+              <div className="genb-back-show">asdf</div>
             </Overdrive>
           </div>
         ) : (
@@ -112,9 +116,7 @@ class App extends Component {
               <div className="genb-confirm">
                 <div className="pure-u-1-2">
                   <Overdrive id={this.state.flagSelected} duration={400}>
-                    <div className="genb-flag">
-                      <FlagIcon code={this.state.flagSelected} size={512} />
-                    </div>
+                    <FlagIcon code={this.state.flagSelected} size={512} />
                   </Overdrive>
                 </div>
                 <div className="pure-u-1-2">
@@ -127,16 +129,18 @@ class App extends Component {
               <div className="genb-select">
                 {flags.map(flag => (
                   <div key={flag} className="pure-u-1-4">
-                    <Overdrive id={flag} key={flag}>
-                      <div className="genb-flag">
-                        <FlagIcon
-                          size={256}
-                          code={flag}
-                          onClick={() => this.selectFlag(flag)}
-                        />
-                        <span className="genb-country-name">Country Name</span>
-                      </div>
-                    </Overdrive>
+                    <div className="genb-flag">
+                      <Overdrive id={flag} key={flag}>
+                        <div className="genb-flag-image">
+                          <FlagIcon
+                            size={100}
+                            code={flag}
+                            onClick={() => this.selectFlag(flag)}
+                          />
+                        </div>
+                      </Overdrive>
+                      <span className="genb-country-name">Country Name</span>
+                    </div>
                   </div>
                 ))}
               </div>

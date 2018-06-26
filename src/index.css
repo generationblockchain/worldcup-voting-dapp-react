@@ -91,10 +91,21 @@ code {
 }
 
 .genb-flag {
-  margin: 1em;
-  margin-bottom: 0;
+  margin: 10px;
+  width: 205px;
+  height: 225px;
+  border: 2px solid hsla(0, 0%, 93%, 0.25);
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
   text-align: center;
   padding-bottom: 2.5em;
+}
+
+.genb-flag-image {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;  
 }
 
 .genb-country-name {
