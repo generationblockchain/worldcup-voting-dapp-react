@@ -52,7 +52,7 @@ main {
   text-align: center;
 }
 
-.genb-flag-list-ul {
+.FlagList {
   padding: 0;
   display: flex;
   margin: 0 auto;
@@ -63,7 +63,7 @@ main {
   justify-content: start;
 }
 
-.genb-flag-list-li {
+.FlagListItem {
   color: #fff;
   margin: 10px;
   width: 205px;
@@ -77,23 +77,32 @@ main {
   border: 2px solid hsla(0, 0%, 93%, 0.25);
 }
 
-.genb-flag-list-li:hover {
+.FlagListItem:hover {
   background: hsla(0, 0%, 100%, 0.15);
   border: 2px solid hsla(0, 0%, 100%, 0.5);
 }
 
-.genb-flag-list-img {
+.FlagListImage {
   width: 100px;
   height: 100px;
   margin: 0 auto 20px;
   transform-origin: top;
 }
 
-.genb-flag-list-title {
+.FlagImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 98px;
+  display: inline-block;
+  background-size: 100% 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.FlagListTitle {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.genb-flag-list-description {
+.FlagListDescription {
   font-size: 14px;
 }

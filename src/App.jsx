@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
-import { FlagIcon } from 'react-flag-kit'
 import Overdrive from 'react-overdrive'
 
 import FlagList from './components/FlagList'
 
-// import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 // import getWeb3 from './utils/getWeb3'
-
-const flags = ['IN', 'GB', 'US', 'CN', 'TV', 'IO', 'VN', 'IT']
+// import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      flagSelected: '',
-      storageValue: 0,
-      web3: null
-    }
+  state = {
+    web3: null,
+    storageValue: 0,
+    flagSelected: ''
   }
 
   removeFlag = () => {
     this.setState({ flagSelected: '' })
   }
 
-  selectFlag(flag) {
+  selectFlag = flag => {
     this.setState({ flagSelected: flag })
   }
 
@@ -114,7 +107,7 @@ class App extends Component {
               <div className="genb-confirm">
                 <div className="pure-u-1-2">
                   <Overdrive id={this.state.flagSelected} duration={400}>
-                    <FlagIcon code={this.state.flagSelected} size={512} />
+                    
                   </Overdrive>
                 </div>
                 <div className="pure-u-1-2">

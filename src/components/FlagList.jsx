@@ -1,23 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const flags = ['IN', 'GB', 'US', 'CN', 'TV', 'IO', 'VN', 'IT']
 
-class FlagList extends React.Component {
+class FlagList extends Component {
   render() {
     return (
-      <ul className="genb-flag-list-ul">
+      <ul className="FlagList">
         {flags.map(flag => (
-          <li className="genb-flag-list-li">
-            <div>
-              <div className="genb-flag-list-img">
-                <span />
-              </div>
-              <div className="genb-flag-list-title">{flag}</div>
-              <div className="genb-flag-list-description">
-                {flag}
-                {flag}
-                {flag}
-              </div>
+          <li key={flag} className="FlagListItem">
+            <div className="FlagListImage">
+              <span
+                className="FlagImage"
+                style={{
+                  backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${flag.toLowerCase()}.svg`)})`
+                }}
+              />
+            </div>
+            <div className="FlagListTitle">{flag}</div>
+            <div className="FlagListDescription">
+              {flag}
+              {flag}
+              {flag}
             </div>
           </li>
         ))}

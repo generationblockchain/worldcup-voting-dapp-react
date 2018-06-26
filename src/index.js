@@ -1,12 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 
 import Particles from './Particles'
 import App from './App'
 
 import './index.css'
 
-ReactDOM.render(
+render(
   <main>
     <Particles />
     <App />
