@@ -1,5 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import Particles from 'react-particles-js'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import App from './App'
+import particlesjsConfig from '../particlesjs-config.json'
+
+import './css/oswald.css'
+import './css/open-sans.css'
+import './css/pure-min.css'
+import './index.css'
+
+ReactDOM.render(
+  <main className="genb-main">
+    <Particles className="genb-particles" params={particlesjsConfig} />
+    <App />
+  </main>,
+  document.getElementById('root')
+)

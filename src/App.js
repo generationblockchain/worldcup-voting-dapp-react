@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
 import { FlagIcon } from 'react-flag-kit'
 import Overdrive from 'react-overdrive'
-import Particles from 'react-particles-js'
 
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 // import getWeb3 from './utils/getWeb3'
-
-import particlesjsConfig from '../particlesjs-config.json'
-
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
 
 const flags = ['IN', 'GB', 'US', 'CN', 'TV', 'IO', 'VN', 'IT']
 
@@ -80,50 +72,44 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <main className="container">
-          <Particles style={{ position: 'fixed' }} params={particlesjsConfig} />
+      <div className="pure-g genb-content">
+        <div className="pure-u-1-1">LOGO</div>
 
-          <div className="pure-g genb-content">
-            <div className="pure-u-1-1">LOGO</div>
-
-            <div className="pure-u-1-1">
-              <div className="genb-question">
-                <h2>Which team would you like to bid for?</h2>
-              </div>
-            </div>
-
-            <div className="pure-u-1-1">
-              <div className="pure-u-1-6" />
-              <div className="pure-u-2-3">
-                {this.state.flagSelected ? (
-                  <div className="genb-confirm">
-                    <div className="pure-u-1-2 genb-flag">
-                      <Overdrive id={this.state.flagSelected} duration={500}>
-                        <FlagIcon code={this.state.flagSelected} size={512} />
-                      </Overdrive>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="genb-select">
-                    {flags.map(flag => (
-                      <div key={flag} className="pure-u-1-4 genb-flag">
-                        <Overdrive id={flag} key={flag}>
-                          <FlagIcon
-                            size={256}
-                            code={flag}
-                            onClick={() => this.selectFlag(flag)}
-                          />
-                        </Overdrive>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="pure-u-1-6" />
-            </div>
+        <div className="pure-u-1-1">
+          <div className="genb-question">
+            <h2>Which team would you like to bid for?</h2>
           </div>
-        </main>
+        </div>
+
+        <div className="pure-u-1-1">
+          <div className="pure-u-1-6" />
+          <div className="pure-u-2-3">
+            {this.state.flagSelected ? (
+              <div className="genb-confirm">
+                <div className="pure-u-1-2 genb-flag">
+                  <Overdrive id={this.state.flagSelected} duration={400}>
+                    <FlagIcon code={this.state.flagSelected} size={512} />
+                  </Overdrive>
+                </div>
+              </div>
+            ) : (
+              <div className="genb-select">
+                {flags.map(flag => (
+                  <div key={flag} className="pure-u-1-4 genb-flag">
+                    <Overdrive id={flag} key={flag}>
+                      <FlagIcon
+                        size={256}
+                        code={flag}
+                        onClick={() => this.selectFlag(flag)}
+                      />
+                    </Overdrive>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="pure-u-1-6" />
+        </div>
       </div>
     )
   }
