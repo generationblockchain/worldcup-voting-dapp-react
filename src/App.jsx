@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FlagIcon } from 'react-flag-kit'
 import Overdrive from 'react-overdrive'
 
+import FlagList from './components/FlagList'
+
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 // import getWeb3 from './utils/getWeb3'
 
@@ -76,37 +78,33 @@ class App extends Component {
 
   render() {
     return (
-      <div className="pure-g genb-content">
-        <div className="pure-u-1-1">
-          <img
-            src="/logo.png"
-            className="genb-logo"
-            alt="Generation Blockchain Logo"
-          />
-        </div>
+      <div className="content">
+        <img
+          src="/logo.png"
+          className="logo"
+          alt="Generation Blockchain Logo"
+        />
 
         {this.state.flagSelected ? (
-          <div className="genb-back" onClick={this.removeFlag}>
-            <Overdrive id="back">
-              <div className="genb-back-show">asdf</div>
-            </Overdrive>
-          </div>
+          <Overdrive id="back">
+            <div
+              className="genb-back"
+              style={{ left: '100px' }}
+              onClick={this.removeFlag}
+            >
+              <div>&lt;</div>
+            </div>
+          </Overdrive>
         ) : (
-          <div className="genb-back">
-            <Overdrive id="back">
-              <div className="genb-back-hide">BACK</div>
-            </Overdrive>
-          </div>
+          <Overdrive id="back">
+            <div className="genb-back">
+              <div>&lt;</div>
+            </div>
+          </Overdrive>
         )}
 
         <div className="pure-u-1-1">
-          <div className="genb-question-container">
-            <div className="genb-question">
-              <h2 style={{ fontWeight: 300 }}>
-                Which team would you like to bid for?
-              </h2>
-            </div>
-          </div>
+          <h2 className="genb-question">I want to bet on...</h2>
         </div>
 
         <div className="pure-u-1-1">
@@ -120,14 +118,15 @@ class App extends Component {
                   </Overdrive>
                 </div>
                 <div className="pure-u-1-2">
-                  <div className="genb-question" style={{ color: 'white' }}>
-                    <h2>How much would you like to bid?</h2>
+                  <div className="genb-amount" style={{ color: 'white' }}>
+                    <h2>Select Amount?</h2>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="genb-select">
-                {flags.map(flag => (
+                <FlagList />
+                {/* {flags.map(flag => (
                   <div key={flag} className="pure-u-1-4">
                     <div className="genb-flag">
                       <Overdrive id={flag} key={flag}>
@@ -142,7 +141,7 @@ class App extends Component {
                       <span className="genb-country-name">Country Name</span>
                     </div>
                   </div>
-                ))}
+                ))} */}
               </div>
             )}
           </div>
