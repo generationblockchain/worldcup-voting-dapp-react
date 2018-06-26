@@ -27,24 +27,13 @@ main {
   position: relative;
 }
 
-.genb-back {
-  top: 50%;
-  left: -250px;
-  color: #ff6f31;
-  cursor: pointer;
-  position: fixed;
-  font-size: 150px;
-  font-weight: 300;
-  font-family: 'Raleway' sans-serif;
-}
-
 .genb-amount {
   color: white;
   font-size: 1.5rem;
   vertical-align: middle;
 }
 
-.genb-question {
+.Question {
   color: #fff;
   font-size: 34px;
   font-weight: 400;
@@ -57,7 +46,7 @@ main {
   display: flex;
   margin: 0 auto;
   flex-wrap: wrap;
-  max-width: 980px;
+  max-width: 916px;
   list-style: none;
   position: relative;
   text-align: center;
@@ -106,4 +95,34 @@ main {
 
 .FlagListDescription {
   font-size: 14px;
+}
+
+.FlagSelect {
+  z-index: 1;
+  height: 478px;
+  display: flex;
+  margin: 20px auto;
+  max-width: 892px;
+  border-radius: 10px;
+  border: 2px solid hsla(0, 0%, 93%, 0.25);
+}
+
+.FlagSelectItem {
+  color: #fff;
+  width: 446px;
+  height: 470px;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.FlagSelectImage {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-size: 100% 100%;
+  background-color: rgba(0, 0, 0, 0.1);
 }

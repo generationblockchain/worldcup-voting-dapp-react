@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Overdrive from 'react-overdrive'
 
 import FlagList from './components/FlagList'
+import FlagSelect from './components/FlagSelect'
 
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
@@ -80,66 +80,13 @@ class App extends Component {
           />
         </a>
 
+        <h2 className="Question">I want to bet on...</h2>
+
         {this.state.flagSelected ? (
-          <Overdrive id="back">
-            <div
-              className="genb-back"
-              style={{ left: '100px' }}
-              onClick={this.removeFlag}
-            >
-              <div>&lt;</div>
-            </div>
-          </Overdrive>
+          <FlagSelect selected={this.state.flagSelected} />
         ) : (
-          <Overdrive id="back">
-            <div className="genb-back">
-              <div>&lt;</div>
-            </div>
-          </Overdrive>
+          <FlagList onSelect={this.selectFlag} />
         )}
-
-        <div className="pure-u-1-1">
-          <h2 className="genb-question">I want to bet on...</h2>
-        </div>
-
-        <div className="pure-u-1-1">
-          <div className="pure-u-1-6" />
-          <div className="pure-u-2-3">
-            {this.state.flagSelected ? (
-              <div className="genb-confirm">
-                <div className="pure-u-1-2">
-                  <Overdrive id={this.state.flagSelected} duration={400} />
-                </div>
-                <div className="pure-u-1-2">
-                  <div className="genb-amount" style={{ color: 'white' }}>
-                    <h2>Select Amount?</h2>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="genb-select">
-                <FlagList />
-                {/* {flags.map(flag => (
-                  <div key={flag} className="pure-u-1-4">
-                    <div className="genb-flag">
-                      <Overdrive id={flag} key={flag}>
-                        <div className="genb-flag-image">
-                          <FlagIcon
-                            size={100}
-                            code={flag}
-                            onClick={() => this.selectFlag(flag)}
-                          />
-                        </div>
-                      </Overdrive>
-                      <span className="genb-country-name">Country Name</span>
-                    </div>
-                  </div>
-                ))} */}
-              </div>
-            )}
-          </div>
-          <div className="pure-u-1-6" />
-        </div>
       </div>
     )
   }
