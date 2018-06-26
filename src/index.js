@@ -5,8 +5,6 @@ import Particles from 'react-particles-js'
 import App from './App'
 import particlesjsConfig from '../particlesjs-config.json'
 
-import './css/oswald.css'
-import './css/open-sans.css'
 import './css/pure-min.css'
 import './index.css'
 

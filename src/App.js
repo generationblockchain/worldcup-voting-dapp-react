@@ -75,15 +75,33 @@ class App extends Component {
       <div className="pure-g genb-content">
         <div className="pure-u-1-1">
           <img
+            src="/logo.png"
             className="genb-logo"
             alt="Generation Blockchain Logo"
-            src="https://generationblockchain.io/public/img/WhiteOrange_Vertical.png"
           />
         </div>
 
+        {this.state.flagSelected ? (
+          <div className="genb-back">
+            <Overdrive id="back">
+              <div className="genb-back-show">BACK</div>
+            </Overdrive>
+          </div>
+        ) : (
+          <div className="genb-back">
+            <Overdrive id="back">
+              <div className="genb-back-hide">BACK</div>
+            </Overdrive>
+          </div>
+        )}
+
         <div className="pure-u-1-1">
-          <div className="genb-question">
-            <h2>Which team would you like to bid for?</h2>
+          <div className="genb-question-container">
+            <div className="genb-question">
+              <h2 style={{ fontWeight: 300 }}>
+                Which team would you like to bid for?
+              </h2>
+            </div>
           </div>
         </div>
 
@@ -93,11 +111,16 @@ class App extends Component {
             {this.state.flagSelected ? (
               <div className="genb-confirm">
                 <div className="pure-u-1-2">
-                  <Overdrive id={this.state.flagSelected} duration={300}>
+                  <Overdrive id={this.state.flagSelected} duration={400}>
                     <div className="genb-flag">
                       <FlagIcon code={this.state.flagSelected} size={512} />
                     </div>
                   </Overdrive>
+                </div>
+                <div className="pure-u-1-2">
+                  <div className="genb-question" style={{ color: 'white' }}>
+                    <h2>How much would you like to bid?</h2>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -107,10 +130,11 @@ class App extends Component {
                     <Overdrive id={flag} key={flag}>
                       <div className="genb-flag">
                         <FlagIcon
-                          size={128}
+                          size={256}
                           code={flag}
                           onClick={() => this.selectFlag(flag)}
                         />
+                        <span className="genb-country-name">Country Name</span>
                       </div>
                     </Overdrive>
                   </div>
