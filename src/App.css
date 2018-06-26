@@ -25,12 +25,12 @@ code {
   height: 100vh;
   box-sizing: border-box;
   background-image: linear-gradient(
-    to left top,
-    #ff6f31,
-    #ff862a,
-    #ff9d26,
+    to bottom,
+    #fdc830,
     #ffb327,
-    #fdc830
+    #ff9d26,
+    #ff862a,
+    #ff6f31
   );
   padding: 45px 20px;
 }
@@ -51,6 +51,9 @@ code {
 
 .genb-content {
   position: relative;
+}
+
+.genb-confirm {
 }
 
 .genb-flag {

@@ -94,31 +94,33 @@ class App extends Component {
             </div>
 
             <div className="pure-u-1-1">
-              {this.state.flagSelected ? (
-                <div style={{ position: 'fixed', right: '5px' }}>
-                  <Overdrive id={this.state.flagSelected}>
-                    <FlagIcon code={this.state.flagSelected} size={96} />
-                  </Overdrive>
-                </div>
-              ) : (
-                <div>
-                  <div className="pure-u-1-6" />
-                  <div className="pure-u-2-3">
+              <div className="pure-u-1-6" />
+              <div className="pure-u-2-3">
+                {this.state.flagSelected ? (
+                  <div className="genb-confirm">
+                    <div className="pure-u-1-2 genb-flag">
+                      <Overdrive id={this.state.flagSelected} duration={500}>
+                        <FlagIcon code={this.state.flagSelected} size={512} />
+                      </Overdrive>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="genb-select">
                     {flags.map(flag => (
-                      <div
-                        key={flag}
-                        className="pure-u-1-4 genb-flag"
-                        onClick={() => this.selectFlag(flag)}
-                      >
+                      <div key={flag} className="pure-u-1-4 genb-flag">
                         <Overdrive id={flag} key={flag}>
-                          <FlagIcon code={flag} size={256} />
+                          <FlagIcon
+                            size={256}
+                            code={flag}
+                            onClick={() => this.selectFlag(flag)}
+                          />
                         </Overdrive>
                       </div>
                     ))}
                   </div>
-                  <div className="pure-u-1-6" />
-                </div>
-              )}
+                )}
+              </div>
+              <div className="pure-u-1-6" />
             </div>
           </div>
         </main>
