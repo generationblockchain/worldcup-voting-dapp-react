@@ -23,7 +23,7 @@ class FlagList extends Component {
             onClick={() => this.props.onSelect(flag)}
           >
             <div className="FlagListImage">
-              <Overdrive id={flag.code}>
+              <Overdrive id={flag.code} duration={100}>
                 <span
                   className="FlagImage"
                   style={{

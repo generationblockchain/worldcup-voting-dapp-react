@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 
+import Success from 'react-icons/lib/io/ios-checkmark-outline'
+import Remove from 'react-icons/lib/io/ios-close-outline'
+
 class FlagSelect extends Component {
   state = {
     amount: 0.000001
@@ -25,11 +28,14 @@ class FlagSelect extends Component {
               }}
             />
           </Overdrive>
-
           <div className="FlagSelectTitle">{this.props.selected.country}</div>
         </div>
         <div className="FlagSelectAmount">
-          <div>
+          <Remove
+            onClick={this.props.onRemove}
+            className="FlagSelectIcon FlagSelectIconClose"
+          />
+          <div className="FlagSelectDisplay">
             <input
               type="text"
               value={this.state.amount}
@@ -44,6 +50,7 @@ class FlagSelect extends Component {
               style={{ textAlign: 'left', width: '123px' }}
             />
           </div>
+          <Success className="FlagSelectIcon FlagSelectIconCheck" />
         </div>
       </div>
     )

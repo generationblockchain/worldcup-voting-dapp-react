@@ -80,10 +80,17 @@ class App extends Component {
           />
         </a>
 
-        <h2 className="Question">I want to bet on...</h2>
+        <h2 className="Question">
+          I want to bet on{this.state.flagSelected
+            ? ' ' + this.state.flagSelected.country + '!'
+            : '...'}
+        </h2>
 
         {this.state.flagSelected ? (
-          <FlagSelect selected={this.state.flagSelected} />
+          <FlagSelect
+            onRemove={this.removeFlag}
+            selected={this.state.flagSelected}
+          />
         ) : (
           <FlagList onSelect={this.selectFlag} />
         )}
