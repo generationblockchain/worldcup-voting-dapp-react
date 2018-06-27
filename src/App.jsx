@@ -10,11 +10,11 @@ class App extends Component {
   state = {
     web3: null,
     storageValue: 0,
-    flagSelected: ''
+    flagSelected: null
   }
 
   removeFlag = () => {
-    this.setState({ flagSelected: '' })
+    this.setState({ flagSelected: null })
   }
 
   selectFlag = flag => {
