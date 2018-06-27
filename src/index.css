@@ -164,11 +164,19 @@ main {
 .FlagSelectIcon {
   z-index: 1;
   cursor: pointer;
-  font-size: 75px;
-  position: relative;
+  position: fixed;
+  font-size: 200px;
 }
 
 .FlagSelectIconClose {
+  top: 42%;
+  left: -100px;
+  color: #f004;
+}
+
+.FlagSelectIconCloseActive {
+  left: 150px;
+  top: 42%;
   color: #f004;
 }
 
@@ -177,6 +185,8 @@ main {
 }
 
 .FlagSelectIconCheck {
+  top: 42%;
+  right: -100px;
   color: #0f04;
 }
 

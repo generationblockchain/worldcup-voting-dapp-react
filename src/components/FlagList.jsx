@@ -8,7 +8,7 @@ const flags = [
   { code: 'ar', country: 'Argentina', description: 'Description' },
   { code: 'uy', country: 'Uruguay', description: 'Description' },
   { code: 'fr', country: 'France', description: 'Description' },
-  { code: 'gb', country: 'England', description: 'Description' },
+  { code: 'gb-eng', country: 'England', description: 'Description' },
   { code: 'es', country: 'Spain', description: 'Description' }
 ]
 

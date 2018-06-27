@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import Overdrive from 'react-overdrive'
+
+import Remove from 'react-icons/lib/io/ios-close-outline'
+import Success from 'react-icons/lib/io/ios-checkmark-outline'
 
 import FlagList from './components/FlagList'
 import FlagSelect from './components/FlagSelect'
@@ -79,6 +83,17 @@ class App extends Component {
             alt="Generation Blockchain Logo"
           />
         </a>
+
+        {!this.state.flagSelected ? (
+          <div>
+            <Overdrive id="remove">
+              <Remove className="FlagSelectIcon FlagSelectIconClose" />
+            </Overdrive>
+            <Overdrive id="success">
+              <Success className="FlagSelectIcon FlagSelectIconCheck" />
+            </Overdrive>
+          </div>
+        ) : null}
 
         <h2 className="Question">
           I want to bet on{this.state.flagSelected
