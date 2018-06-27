@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 
 const flags = [
-  { code: 'in', country: 'India', description: 'Description' },
-  { code: 'gb', country: 'United Kingdom', description: 'Description' },
-  { code: 'us', country: 'United States', description: 'Description' },
-  { code: 'cn', country: 'China', description: 'Description' },
-  { code: 'tv', country: 'Tuvalu', description: 'Description' },
-  { code: 'au', country: 'Australia', description: 'Description' },
-  { code: 'vn', country: 'Venezula', description: 'Description' },
-  { code: 'it', country: 'Italy', description: 'Description' }
+  { code: 'br', country: 'Brazil', description: 'Description' },
+  { code: 'de', country: 'Germany', description: 'Description' },
+  { code: 'it', country: 'Italy', description: 'Description' },
+  { code: 'ar', country: 'Argentina', description: 'Description' },
+  { code: 'uy', country: 'Uruguay', description: 'Description' },
+  { code: 'fr', country: 'France', description: 'Description' },
+  { code: 'gb', country: 'England', description: 'Description' },
+  { code: 'es', country: 'Spain', description: 'Description' }
 ]
 
 class FlagList extends Component {
