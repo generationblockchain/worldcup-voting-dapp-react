@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 
-import Remove from 'react-icons/lib/io/ios-close-outline'
-import Success from 'react-icons/lib/io/ios-checkmark-outline'
+import Remove from 'react-icons/lib/io/ios-close-empty'
+import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
 import FlagList from './components/FlagList'
 import FlagView from './components/FlagView'
@@ -85,7 +85,7 @@ class App extends Component {
         </a>
 
         <h2 className="Question">
-          I want to bet on{this.state.flagSelected
+          I want to vote for{this.state.flagSelected
             ? ' ' + this.state.flagSelected.country + '!'
             : '...'}
         </h2>
@@ -96,7 +96,7 @@ class App extends Component {
               <Remove
                 onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
-                style={{ left: this.state.flagSelected ? '' : '-250px' }}
+                style={{ left: this.state.flagSelected ? '' : '-350px' }}
               />
             </Overdrive>
           </div>
@@ -114,7 +114,7 @@ class App extends Component {
             <Overdrive id="success">
               <Success
                 className="FlagSideIcon FlagSideIconCheck"
-                style={{ right: this.state.flagSelected ? '' : '-250px' }}
+                style={{ right: this.state.flagSelected ? '' : '-350px' }}
               />
             </Overdrive>
           </div>

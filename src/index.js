@@ -9,7 +9,7 @@ import './index.css'
 render(
   <main>
     <App />
-    {/* <Particles /> */}
+    <Particles />
   </main>,
   document.getElementById('root')
 )

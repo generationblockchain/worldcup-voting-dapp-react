@@ -24,21 +24,20 @@ class FlagView extends Component {
             }}
           />
         </Overdrive>
-        <div className="FlagViewDisplay">
-          <input
-            type="text"
-            value={this.state.amount}
-            className="FlagAmountTitle"
-            onChange={this.changeAmount}
-          />
-          <input
-            disabled
-            type="text"
-            value=" BTC"
-            className="FlagAmountTitle"
-            style={{ textAlign: 'left', width: '123px' }}
-          />
-        </div>
+
+        <input
+          type="text"
+          value={this.state.amount}
+          className="FlagAmountTitle"
+          onChange={this.changeAmount}
+        />
+        <input
+          disabled
+          type="text"
+          value="ETH"
+          style={{ width: '123px' }}
+          className="FlagAmountTitle"
+        />
       </div>
     )
   }
