@@ -84,31 +84,37 @@ class App extends Component {
           />
         </a>
 
-        {!this.state.flagSelected ? (
-          <div>
-            <Overdrive id="remove">
-              <Remove className="FlagSelectIcon FlagSelectIconClose" />
-            </Overdrive>
-            <Overdrive id="success">
-              <Success className="FlagSelectIcon FlagSelectIconCheck" />
-            </Overdrive>
-          </div>
-        ) : null}
-
         <h2 className="Question">
           I want to bet on{this.state.flagSelected
             ? ' ' + this.state.flagSelected.country + '!'
             : '...'}
         </h2>
 
-        {this.state.flagSelected ? (
-          <FlagView
-            onRemove={this.removeFlag}
-            selected={this.state.flagSelected}
-          />
-        ) : (
-          <FlagList onSelect={this.selectFlag} />
-        )}
+        <div className="Flag">
+          <div className="FlagSide">
+            <Overdrive id="remove">
+              <Remove
+                onClick={this.props.onRemove}
+                className="FlagSideIcon FlagSideIconClose"
+              />
+            </Overdrive>
+          </div>
+
+          {this.state.flagSelected ? (
+            <FlagView
+              onRemove={this.removeFlag}
+              selected={this.state.flagSelected}
+            />
+          ) : (
+            <FlagList onSelect={this.selectFlag} />
+          )}
+
+          <div className="FlagSide">
+            <Overdrive id="success">
+              <Success className="FlagSideIcon FlagSideIconCheck" />
+            </Overdrive>
+          </div>
+        </div>
       </div>
     )
   }

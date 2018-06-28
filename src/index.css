@@ -32,6 +32,12 @@ body {
   text-align: center;
 }
 
+.Flag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .FlagList {
   z-index: 1;
   padding: 0;
@@ -84,14 +90,12 @@ body {
 
 .FlagView {
   display: flex;
-  max-width: 916px;
-  margin: 20px auto;
+  justify-content: space-around;
 }
 
-.FlagViewItem {
+.FlagSide {
+  display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
 .FlagViewImage {
@@ -131,36 +135,26 @@ body {
   outline: none;
 }
 
-.FlagViewIcon {
+.FlagSideIcon {
   z-index: 1;
   cursor: pointer;
-  position: fixed;
   font-size: 200px;
+  position: relative;
 }
 
-.FlagViewIconClose {
-  top: 42%;
-  left: -100px;
+.FlagSideIconClose {
   color: #f004;
 }
 
-.FlagViewIconCloseActive {
-  left: 150px;
-  top: 42%;
-  color: #f004;
-}
-
-.FlagViewIconClose:hover {
+.FlagSideIconClose:hover {
   color: #f00d;
 }
 
-.FlagViewIconCheck {
-  top: 42%;
-  right: -100px;
+.FlagSideIconCheck {
   color: #0f04;
 }
 
-.FlagViewIconCheck:hover {
+.FlagSideIconCheck:hover {
   color: #0f0a;
 }
 
