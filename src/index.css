@@ -4,6 +4,7 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
   font-family: 'Raleway', sans-serif;
   background: linear-gradient(
       to left top,
@@ -35,8 +36,40 @@ body {
 .Flag {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
+
+/* Side */
+
+.FlagSide {
+  display: flex;
+  align-items: center;
+}
+
+.FlagSideIcon {
+  z-index: 1;
+  cursor: pointer;
+  font-size: 200px;
+  position: relative;
+}
+
+.FlagSideIconClose {
+  color: #abc;
+}
+
+.FlagSideIconClose:hover {
+  color: #f00;
+}
+
+.FlagSideIconCheck {
+  color: #abc;
+}
+
+.FlagSideIconCheck:hover {
+  color: #0f0;
+}
+
+/* List */
 
 .FlagList {
   z-index: 1;
@@ -88,14 +121,11 @@ body {
   font-size: 14px;
 }
 
+/* View */
+
 .FlagView {
   display: flex;
   justify-content: space-around;
-}
-
-.FlagSide {
-  display: flex;
-  align-items: center;
 }
 
 .FlagViewImage {
@@ -135,28 +165,7 @@ body {
   outline: none;
 }
 
-.FlagSideIcon {
-  z-index: 1;
-  cursor: pointer;
-  font-size: 200px;
-  position: relative;
-}
-
-.FlagSideIconClose {
-  color: #f004;
-}
-
-.FlagSideIconClose:hover {
-  color: #f00d;
-}
-
-.FlagSideIconCheck {
-  color: #0f04;
-}
-
-.FlagSideIconCheck:hover {
-  color: #0f0a;
-}
+/* Animation */
 
 @keyframes spin {
   from {

@@ -94,8 +94,9 @@ class App extends Component {
           <div className="FlagSide">
             <Overdrive id="remove">
               <Remove
-                onClick={this.props.onRemove}
+                onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
+                style={{ left: this.state.flagSelected ? '' : '-250px' }}
               />
             </Overdrive>
           </div>
@@ -111,7 +112,10 @@ class App extends Component {
 
           <div className="FlagSide">
             <Overdrive id="success">
-              <Success className="FlagSideIcon FlagSideIconCheck" />
+              <Success
+                className="FlagSideIcon FlagSideIconCheck"
+                style={{ right: this.state.flagSelected ? '' : '-250px' }}
+              />
             </Overdrive>
           </div>
         </div>
