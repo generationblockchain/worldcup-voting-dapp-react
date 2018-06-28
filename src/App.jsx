@@ -5,7 +5,7 @@ import Remove from 'react-icons/lib/io/ios-close-outline'
 import Success from 'react-icons/lib/io/ios-checkmark-outline'
 
 import FlagList from './components/FlagList'
-import FlagSelect from './components/FlagSelect'
+import FlagView from './components/FlagView'
 
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
@@ -102,7 +102,7 @@ class App extends Component {
         </h2>
 
         {this.state.flagSelected ? (
-          <FlagSelect
+          <FlagView
             onRemove={this.removeFlag}
             selected={this.state.flagSelected}
           />

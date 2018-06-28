@@ -4,7 +4,7 @@ import Overdrive from 'react-overdrive'
 import Remove from 'react-icons/lib/io/ios-close-outline'
 import Success from 'react-icons/lib/io/ios-checkmark-outline'
 
-class FlagSelect extends Component {
+class FlagView extends Component {
   state = {
     amount: 0.000001
   }
@@ -16,21 +16,21 @@ class FlagSelect extends Component {
 
   render() {
     return (
-      <div className="FlagSelect">
+      <div className="FlagView">
         <Overdrive id="remove">
           <Remove
             onClick={this.props.onRemove}
-            className="FlagSelectIcon FlagSelectIconClose"
+            className="FlagViewIcon FlagViewIconClose"
           />
         </Overdrive>
         <Overdrive id="remove">
-          <Success className="FlagSelectIcon FlagSelectIconCheck" />
+          <Success className="FlagViewIcon FlagViewIconCheck" />
         </Overdrive>
 
-        <div className="FlagSelectItem">
+        <div className="FlagViewItem">
           <Overdrive id={this.props.selected.code}>
             <span
-              className="FlagSelectImage"
+              className="FlagViewImage"
               style={{
                 backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/4x3/${
                   this.props.selected.code
@@ -38,10 +38,7 @@ class FlagSelect extends Component {
               }}
             />
           </Overdrive>
-          <div className="FlagSelectTitle">{this.props.selected.country}</div>
-        </div>
-        <div className="FlagSelectAmount">
-          <div className="FlagSelectDisplay">
+          <div className="FlagViewDisplay">
             <input
               type="text"
               value={this.state.amount}
@@ -62,4 +59,4 @@ class FlagSelect extends Component {
   }
 }
 
-export default FlagSelect
+export default FlagView

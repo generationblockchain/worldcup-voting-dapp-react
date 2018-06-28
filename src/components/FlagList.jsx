@@ -22,10 +22,10 @@ class FlagList extends Component {
             className="FlagListItem"
             onClick={() => this.props.onSelect(flag)}
           >
-            <div className="FlagListImage">
+            <div className="FlagListContainer">
               <Overdrive id={flag.code} duration={100}>
                 <span
-                  className="FlagImage"
+                  className="FlagListImage"
                   style={{
                     backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${
                       flag.code

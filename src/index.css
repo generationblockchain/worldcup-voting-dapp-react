@@ -5,18 +5,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Raleway', sans-serif;
-}
-
-main {
-  height: 100vh;
-  background-image: linear-gradient(
-    to left top,
-    #ff6f31,
-    #e54d77,
-    #9c5597,
-    #4e5686,
-    #2f4858
-  );
+  background: linear-gradient(
+      to left top,
+      #ff6f31,
+      #e54d77,
+      #9c5597,
+      #4e5686,
+      #2f4858
+    )
+    center center fixed;
 }
 
 .Logo {
@@ -38,48 +35,42 @@ main {
 .FlagList {
   z-index: 1;
   padding: 0;
-  display: flex;
   margin: 0 auto;
-  flex-wrap: wrap;
   max-width: 916px;
-  list-style: none;
-  position: relative;
   text-align: center;
-  justify-content: start;
 }
 
 .FlagListItem {
+  z-index: 1;
   color: #fff;
   margin: 10px;
   width: 205px;
   height: 225px;
   cursor: pointer;
-  align-items: center;
+  position: relative;
   border-radius: 10px;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid hsla(0, 0%, 93%, 0.25);
+  border: 2px solid #ededed40;
 }
 
 .FlagListItem:hover {
-  background: hsla(0, 0%, 100%, 0.15);
-  border: 2px solid hsla(0, 0%, 100%, 0.5);
+  background: #ffffff26;
+  border: 2px solid #ffffff80;
+}
+
+.FlagListContainer {
+  margin: 0 auto 20px;
 }
 
 .FlagListImage {
   width: 100px;
   height: 100px;
-  margin: 0 auto 20px;
-}
-
-.FlagImage {
-  width: 100px;
-  height: 100px;
   border-radius: 98px;
   display: inline-block;
+  background-color: #019;
   background-size: 100% 100%;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .FlagListTitle {
@@ -91,54 +82,33 @@ main {
   font-size: 14px;
 }
 
-.FlagSelect {
-  height: 478px;
+.FlagView {
   display: flex;
-  max-width: 892px;
+  max-width: 916px;
   margin: 20px auto;
 }
 
-.FlagSelectAmount {
-  color: #fff;
-  width: 446px;
-  height: 376px;
-  /* margin-top: 50px; */
+.FlagViewItem {
   align-items: center;
-  display: inline-flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.FlagSelectItem {
-  color: #fff;
-  width: 446px;
-  height: 470px;
-  align-items: center;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.FlagSelectImage {
+.FlagViewImage {
   z-index: 1;
   width: 300px;
   height: 225px;
   position: relative;
   border-radius: 10px;
   display: inline-block;
+  background-color: #019;
   background-size: 100% 100%;
-  background-color: rgba(0, 0, 0, 0.1);
 
   animation-name: spin;
   animation-delay: 800ms;
   animation-duration: 8000ms;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-}
-
-.FlagSelectTitle {
-  font-size: 40px;
-  font-weight: 300;
 }
 
 .FlagAmountTitle {
@@ -161,36 +131,36 @@ main {
   outline: none;
 }
 
-.FlagSelectIcon {
+.FlagViewIcon {
   z-index: 1;
   cursor: pointer;
   position: fixed;
   font-size: 200px;
 }
 
-.FlagSelectIconClose {
+.FlagViewIconClose {
   top: 42%;
   left: -100px;
   color: #f004;
 }
 
-.FlagSelectIconCloseActive {
+.FlagViewIconCloseActive {
   left: 150px;
   top: 42%;
   color: #f004;
 }
 
-.FlagSelectIconClose:hover {
+.FlagViewIconClose:hover {
   color: #f00d;
 }
 
-.FlagSelectIconCheck {
+.FlagViewIconCheck {
   top: 42%;
   right: -100px;
   color: #0f04;
 }
 
-.FlagSelectIconCheck:hover {
+.FlagViewIconCheck:hover {
   color: #0f0a;
 }
 
