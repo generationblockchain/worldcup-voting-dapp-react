@@ -55,7 +55,8 @@
     "react-dom": "^15.4.2",
     "react-icons": "^2.2.7",
     "react-overdrive": "^0.0.10",
-    "react-particles-js": "^2.2.0"
+    "react-particles-js": "^2.2.0",
+    "react-tooltip": "^3.6.1"
   },
   "scripts": {
     "start": "node scripts/start.js",

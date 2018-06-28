@@ -55,19 +55,19 @@ body {
 }
 
 .FlagSideIconClose {
-  color: #abc;
+  color: #fffa;
 }
 
 .FlagSideIconClose:hover {
-  color: #f00;
+  color: #be6464;
 }
 
 .FlagSideIconCheck {
-  color: #abc;
+  color: #fffa;
 }
 
 .FlagSideIconCheck:hover {
-  color: #0f0;
+  color: #8dc572;
 }
 
 /* List */

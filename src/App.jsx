@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactTooltip from 'react-tooltip'
 import Overdrive from 'react-overdrive'
 
 import Remove from 'react-icons/lib/io/ios-close-empty'
@@ -87,6 +88,13 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ReactTooltip id="tip-r" place="left" type="error" effect="solid">
+          Cancel
+        </ReactTooltip>
+        <ReactTooltip id="tip-s" place="right" type="success" effect="solid">
+          Vote
+        </ReactTooltip>
+
         <a href="https://generationblockchain.io">
           <img
             src="/logo.png"
@@ -94,7 +102,6 @@ class App extends Component {
             alt="Generation Blockchain Logo"
           />
         </a>
-
         <h2 className="Question">
           I want to vote for{this.state.flagSelected ? (
             <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
@@ -106,11 +113,12 @@ class App extends Component {
             '...'
           )}
         </h2>
-
         <div className="Flag">
           <div className="FlagSide">
             <Overdrive id="remove">
               <Remove
+                data-tip
+                data-for="tip-r"
                 onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
                 style={{ left: this.state.flagSelected ? '' : '-350px' }}
@@ -131,6 +139,8 @@ class App extends Component {
           <div className="FlagSide">
             <Overdrive id="success">
               <Success
+                data-tip
+                data-for="tip-s"
                 className="FlagSideIcon FlagSideIconCheck"
                 style={{ right: this.state.flagSelected ? '' : '-350px' }}
               />
