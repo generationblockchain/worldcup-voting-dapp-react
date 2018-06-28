@@ -3,7 +3,7 @@ import Overdrive from 'react-overdrive'
 
 class FlagView extends Component {
   state = {
-    amount: 0.000001
+    amount: this.props.amount || 0.000001
   }
 
   changeAmount = event => {

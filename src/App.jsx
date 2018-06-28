@@ -7,6 +7,17 @@ import Success from 'react-icons/lib/io/ios-checkmark-empty'
 import FlagList from './components/FlagList'
 import FlagView from './components/FlagView'
 
+const flags = [
+  { code: 'br', country: 'Brazil', description: 0.0004 },
+  { code: 'de', country: 'Germany', description: 0.0007 },
+  { code: 'it', country: 'Italy', description: 0.0039 },
+  { code: 'ar', country: 'Argentina', description: 0.0054 },
+  { code: 'uy', country: 'Uruguay', description: 0.0079 },
+  { code: 'fr', country: 'France', description: 0.0101 },
+  { code: 'gb-eng', country: 'England', description: 0.0192 },
+  { code: 'es', country: 'Spain', description: 0.0256 }
+]
+
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 
@@ -85,9 +96,15 @@ class App extends Component {
         </a>
 
         <h2 className="Question">
-          I want to vote for{this.state.flagSelected
-            ? ' ' + this.state.flagSelected.country + '!'
-            : '...'}
+          I want to vote for{this.state.flagSelected ? (
+            <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
+              {' '}
+              {this.state.flagSelected.country}
+              {'!'}
+            </span>
+          ) : (
+            '...'
+          )}
         </h2>
 
         <div className="Flag">
@@ -105,9 +122,10 @@ class App extends Component {
             <FlagView
               onRemove={this.removeFlag}
               selected={this.state.flagSelected}
+              amount={this.state.flagSelected.description}
             />
           ) : (
-            <FlagList onSelect={this.selectFlag} />
+            <FlagList flags={flags} onSelect={this.selectFlag} />
           )}
 
           <div className="FlagSide">

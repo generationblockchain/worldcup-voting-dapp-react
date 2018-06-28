@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron:400');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
 
 body {
   margin: 0;
@@ -127,8 +127,8 @@ body {
 .FlagView {
   display: flex;
   text-align: center;
+  align-items: center;
   flex-direction: column;
-  justify-content: center;
 }
 
 .FlagViewImage {
@@ -154,8 +154,9 @@ body {
   color: white;
   border: none;
   width: 300px;
+  margin: 20px 0;
   font-size: 40px;
-  text-align: right;
+  text-align: center;
   position: relative;
   background: transparent;
   font-family: 'Orbitron', sans-serif;

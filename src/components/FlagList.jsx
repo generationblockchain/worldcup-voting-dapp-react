@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 
-const flags = [
-  { code: 'br', country: 'Brazil', description: 'Description' },
-  { code: 'de', country: 'Germany', description: 'Description' },
-  { code: 'it', country: 'Italy', description: 'Description' },
-  { code: 'ar', country: 'Argentina', description: 'Description' },
-  { code: 'uy', country: 'Uruguay', description: 'Description' },
-  { code: 'fr', country: 'France', description: 'Description' },
-  { code: 'gb-eng', country: 'England', description: 'Description' },
-  { code: 'es', country: 'Spain', description: 'Description' }
-]
-
 class FlagList extends Component {
   render() {
     return (
       <ul className="FlagList">
-        {flags.map(flag => (
+        {this.props.flags.map(flag => (
           <li
             key={flag.code}
             className="FlagListItem"
