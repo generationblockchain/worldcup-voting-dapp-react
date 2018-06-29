@@ -28,14 +28,21 @@ class App extends Component {
   state = {
     web3: null,
     storageValue: 0,
+
     flagVoted: false,
-    flagSelected: null
+    flagSelected: null,
+    pastTransactions: []
   }
 
   voteFlag = () => {
-    console.log(this.state.flagSelected)
     // Perform async request with flag data...
-    this.setState({ flagVoted: true, flagSelected: null })
+    this.setState({
+      flagVoted: true,
+      flagSelected: null,
+      pastTransactions: this.state.pastTransactions.concat([
+        this.state.flagSelected
+      ])
+    })
   }
 
   resetFlag = () => {
@@ -101,6 +108,7 @@ class App extends Component {
   render() {
     const flagVoted = this.state.flagVoted
     const flagSelected = this.state.flagSelected
+    const transactions = this.state.pastTransactions
 
     return (
       <div>
@@ -158,8 +166,8 @@ class App extends Component {
             <FlagLoad onReset={this.resetFlag} />
           ) : flagSelected ? (
             <FlagView
-              onRemove={this.removeFlag}
               selected={flagSelected}
+              onRemove={this.removeFlag}
               amount={flagSelected.description}
             />
           ) : (
@@ -180,7 +188,7 @@ class App extends Component {
           </div>
         </div>
 
-        <FlagDash />
+        <FlagDash transactions={transactions} />
       </div>
     )
   }

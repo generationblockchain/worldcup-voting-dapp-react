@@ -27,38 +27,26 @@ class FlagDash extends Component {
             style={{ bottom: isOpen ? 0 : '-120px' }}
           >
             <ul className="FlagList FlagDash">
-              <li className="FlagListItem FlagDashItem">
-                <div>
-                  <span
-                    className="FlagListImage FlagDashImage"
-                    style={{
-                      backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/in.svg`)})`
-                    }}
-                  />
-                </div>
-                <div>
-                  <div className="FlagListTitle">flag.country</div>
-                  <div className="FlagListDescription">
-                    flag.description ETH
+              {this.props.transactions.map(flag => (
+                <li className="FlagListItem FlagDashItem">
+                  <div>
+                    <span
+                      className="FlagListImage FlagDashImage"
+                      style={{
+                        backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${
+                          flag.code
+                        }.svg`)})`
+                      }}
+                    />
                   </div>
-                </div>
-              </li>
-              <li className="FlagListItem FlagDashItem">
-                <div>
-                  <span
-                    className="FlagListImage FlagDashImage"
-                    style={{
-                      backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/in.svg`)})`
-                    }}
-                  />
-                </div>
-                <div>
-                  <div className="FlagListTitle">flag.country</div>
-                  <div className="FlagListDescription">
-                    flag.description ETH
+                  <div>
+                    <div className="FlagListTitle">{flag.country}</div>
+                    <div className="FlagListDescription">
+                      {flag.description} ETH
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </Overdrive>
