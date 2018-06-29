@@ -27,7 +27,14 @@ class App extends Component {
   state = {
     web3: null,
     storageValue: 0,
+    flagVoted: false,
     flagSelected: null
+  }
+
+  voteFlag = () => {
+    console.log(this.state.flagSelected)
+    // Perform async request with flag data...
+    this.setState({ flagVoted: true, flagSelected: null })
   }
 
   removeFlag = () => {
@@ -87,8 +94,12 @@ class App extends Component {
   }
 
   render() {
+    const flagVoted = this.state.flagVoted
+    const flagSelected = this.state.flagSelected
+
     return (
       <div>
+        {/* Tooltip */}
         <ReactTooltip id="tip-r" place="left" type="error" effect="solid">
           Cancel
         </ReactTooltip>
@@ -96,6 +107,7 @@ class App extends Component {
           Vote
         </ReactTooltip>
 
+        {/* Logo */}
         <a href="https://generationblockchain.io">
           <img
             src="/logo.png"
@@ -103,18 +115,23 @@ class App extends Component {
             alt="Generation Blockchain Logo"
           />
         </a>
+
+        {/* Question */}
         <h2 className="Question">
-          I want to vote for{this.state.flagSelected ? (
+          I want to vote for{flagSelected ? (
             <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
               {' '}
-              {this.state.flagSelected.country}
+              {flagSelected.country}
               {'!'}
             </span>
           ) : (
             '...'
           )}
         </h2>
+
+        {/* Main */}
         <div className="Flag">
+          {/* Left Button */}
           <div className="FlagSide">
             <Overdrive id="remove">
               <Remove
@@ -122,28 +139,33 @@ class App extends Component {
                 data-for="tip-r"
                 onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
-                style={{ left: this.state.flagSelected ? '' : '-350px' }}
+                style={{ left: flagSelected ? '' : '-1000px' }}
               />
             </Overdrive>
           </div>
 
-          {this.state.flagSelected ? (
+          {/* Flag */}
+          {flagVoted ? (
+            <FlagLoad />
+          ) : flagSelected ? (
             <FlagView
               onRemove={this.removeFlag}
-              selected={this.state.flagSelected}
-              amount={this.state.flagSelected.description}
+              selected={flagSelected}
+              amount={flagSelected.description}
             />
           ) : (
             <FlagList flags={flags} onSelect={this.selectFlag} />
           )}
 
+          {/* Right Button */}
           <div className="FlagSide">
             <Overdrive id="success">
               <Success
                 data-tip
                 data-for="tip-s"
+                onClick={this.voteFlag}
                 className="FlagSideIcon FlagSideIconCheck"
-                style={{ right: this.state.flagSelected ? '' : '-350px' }}
+                style={{ right: flagSelected ? '' : '-1000px' }}
               />
             </Overdrive>
           </div>
