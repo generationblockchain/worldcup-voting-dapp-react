@@ -25,7 +25,13 @@ class FlagDash extends Component {
             {this.props.transactions.length ? (
               <ul className="FlagList FlagDash">
                 {this.props.transactions.map((flag, index) => (
-                  <li key={index} className="FlagListItem FlagDashItem">
+                  <li
+                    key={index}
+                    className="FlagListItem FlagDashItem"
+                    onClick={() =>
+                      window.open('https://etherscan.io/', '_blank')
+                    }
+                  >
                     <div>
                       <span
                         className="FlagListImage FlagDashImage"

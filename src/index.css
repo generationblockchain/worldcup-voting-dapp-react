@@ -180,14 +180,15 @@ body {
 
 .FlagLoadMessage {
   color: white;
+  margin: 20px 0;
   font-size: 40px;
-  margin: 40px 0;
+  text-align: center;
 }
 
 .FlagLoadBack {
   color: #fffa;
   padding: 10px;
-  margin: 40px 0;
+  margin: 20px 0;
   cursor: pointer;
   font-size: 20px;
   border-radius: 10px;
@@ -204,9 +205,9 @@ body {
   height: 200px;
   margin: 50px 0;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 10%;
   animation: background 4s -3.5s infinite;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
 }
 
 #wrapper {
@@ -295,9 +296,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
   height: 120px;
   position: fixed;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .FlagDashItem {
