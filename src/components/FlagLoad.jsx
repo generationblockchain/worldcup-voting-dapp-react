@@ -48,11 +48,20 @@ class FlagLoad extends Component {
 
   render() {
     return (
-      <div id="container">
-        <div id="stars" />
-        <div id="wrapper">
-          <div className="ball" id="ball-top" />
-          <div className="ball" id="ball-bottom" />
+      <div>
+        <div id="container">
+          <div id="stars" />
+          <div id="wrapper">
+            <div className="ball" id="ball-top" />
+            <div className="ball" id="ball-bottom" />
+          </div>
+        </div>
+        <div
+          className="back"
+          onClick={this.props.onReset}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
+          BACK
         </div>
       </div>
     )

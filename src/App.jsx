@@ -37,6 +37,10 @@ class App extends Component {
     this.setState({ flagVoted: true, flagSelected: null })
   }
 
+  resetFlag = () => {
+    this.setState({ flagVoted: false, flagSelected: null })
+  }
+
   removeFlag = () => {
     this.setState({ flagSelected: null })
   }
@@ -117,17 +121,21 @@ class App extends Component {
         </a>
 
         {/* Question */}
-        <h2 className="Question">
-          I want to vote for{flagSelected ? (
-            <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
-              {' '}
-              {flagSelected.country}
-              {'!'}
-            </span>
-          ) : (
-            '...'
-          )}
-        </h2>
+        {flagVoted ? (
+          <h2 className="Question">Your vote has been submitted!</h2>
+        ) : (
+          <h2 className="Question">
+            I want to vote for{flagSelected ? (
+              <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
+                {' '}
+                {flagSelected.country}
+                {'!'}
+              </span>
+            ) : (
+              '...'
+            )}
+          </h2>
+        )}
 
         {/* Main */}
         <div className="Flag">
@@ -146,7 +154,7 @@ class App extends Component {
 
           {/* Flag */}
           {flagVoted ? (
-            <FlagLoad />
+            <FlagLoad onReset={this.resetFlag} />
           ) : flagSelected ? (
             <FlagView
               onRemove={this.removeFlag}
