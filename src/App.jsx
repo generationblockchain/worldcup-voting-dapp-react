@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import ReactTooltip from 'react-tooltip'
 import Overdrive from 'react-overdrive'
 
+// import getWeb3 from './utils/getWeb3'
+// import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
+
 import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
 import FlagList from './components/FlagList'
+import FlagLoad from './components/FlagLoad'
 import FlagView from './components/FlagView'
 
 const flags = [
@@ -18,9 +22,6 @@ const flags = [
   { code: 'gb-eng', country: 'England', description: 0.0192 },
   { code: 'es', country: 'Spain', description: 0.0256 }
 ]
-
-// import getWeb3 from './utils/getWeb3'
-// import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 
 class App extends Component {
   state = {
@@ -126,7 +127,7 @@ class App extends Component {
             </Overdrive>
           </div>
 
-          {this.state.flagSelected ? (
+          {/* {this.state.flagSelected ? (
             <FlagView
               onRemove={this.removeFlag}
               selected={this.state.flagSelected}
@@ -134,7 +135,9 @@ class App extends Component {
             />
           ) : (
             <FlagList flags={flags} onSelect={this.selectFlag} />
-          )}
+          )} */}
+
+          <FlagLoad />
 
           <div className="FlagSide">
             <Overdrive id="success">
