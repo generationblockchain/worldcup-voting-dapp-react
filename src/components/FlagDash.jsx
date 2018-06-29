@@ -23,9 +23,9 @@ class FlagDash extends Component {
             style={{ bottom: isOpen ? 0 : '-120px' }}
           >
             {this.props.transactions.length ? (
-              this.props.transactions.map((flag, index) => (
-                <ul key={index} className="FlagList FlagDash">
-                  <li className="FlagListItem FlagDashItem">
+              <ul className="FlagList FlagDash">
+                {this.props.transactions.map((flag, index) => (
+                  <li key={index} className="FlagListItem FlagDashItem">
                     <div>
                       <span
                         className="FlagListImage FlagDashImage"
@@ -43,8 +43,8 @@ class FlagDash extends Component {
                       </div>
                     </div>
                   </li>
-                </ul>
-              ))
+                ))}
+              </ul>
             ) : (
               <ul
                 className="FlagList FlagDash"

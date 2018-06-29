@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   resetFlag = () => {
-    this.setState({ flagVoted: false, flagSelected: null })
+    this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
   }
 
   removeFlag = () => {

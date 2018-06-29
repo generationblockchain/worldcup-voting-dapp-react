@@ -178,6 +178,27 @@ body {
   flex-direction: column;
 }
 
+.FlagLoadMessage {
+  color: white;
+  font-size: 40px;
+  margin: 40px 0;
+}
+
+.FlagLoadBack {
+  color: #fffa;
+  padding: 10px;
+  margin: 40px 0;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.FlagLoadBack:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 #container {
   width: 200px;
   height: 200px;

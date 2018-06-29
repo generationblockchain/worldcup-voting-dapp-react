@@ -58,17 +58,16 @@ class FlagLoad extends Component {
         </div>
         <div
           className="FlagLoadMessage"
-          onClick={this.props.onReset}
           style={{ position: 'relative', zIndex: 1 }}
         >
-          Message
+          Ethereum miners are busy mining your transaction!
         </div>
         <div
           className="FlagLoadBack"
           onClick={this.props.onReset}
           style={{ position: 'relative', zIndex: 1 }}
         >
-          BACK
+          BACK TO VOTE
         </div>
       </div>
     )
