@@ -207,16 +207,16 @@ body {
   top: 40px;
   width: 80px;
   height: 80px;
-  background-color: #ffd475;
-  box-shadow: 0 0 15px #ffcb57;
+  background-size: cover;
+  background-image: url('/ball.jpg');
 }
 
 #ball-bottom {
   top: 450px;
   width: 50px;
   height: 50px;
-  background-color: #eee;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2) inset, 0 0 10px white;
+  background-size: cover;
+  background-image: url('/ball.jpg');
 }
 
 #stars {
@@ -224,6 +224,7 @@ body {
   opacity: 0.8;
   perspective: 15px;
   animation: stars 4s linear infinite;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2) inset, 0 0 10px white;
 }
 
 .star {
@@ -275,13 +276,13 @@ body {
 
 @keyframes background {
   0% {
-    background-color: #2896c3;
+    background-color: #5f95fe;
   }
   50% {
-    background-color: #1e5267;
+    background-color: #2f4858;
   }
   100% {
-    background-color: #2896c3;
+    background-color: #5f95fe;
   }
 }
 
