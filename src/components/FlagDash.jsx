@@ -22,28 +22,44 @@ class FlagDash extends Component {
             className="FlagDashView"
             style={{ bottom: isOpen ? 0 : '-120px' }}
           >
-            <ul className="FlagList FlagDash">
-              {this.props.transactions.map(flag => (
-                <li className="FlagListItem FlagDashItem">
-                  <div>
-                    <span
-                      className="FlagListImage FlagDashImage"
-                      style={{
-                        backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${
-                          flag.code
-                        }.svg`)})`
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <div className="FlagListTitle">{flag.country}</div>
-                    <div className="FlagListDescription">
-                      {flag.description} ETH
+            {this.props.transactions.length ? (
+              this.props.transactions.map((flag, index) => (
+                <ul key={index} className="FlagList FlagDash">
+                  <li className="FlagListItem FlagDashItem">
+                    <div>
+                      <span
+                        className="FlagListImage FlagDashImage"
+                        style={{
+                          backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${
+                            flag.code
+                          }.svg`)})`
+                        }}
+                      />
                     </div>
+                    <div>
+                      <div className="FlagListTitle">{flag.country}</div>
+                      <div className="FlagListDescription">
+                        {flag.description} ETH
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              ))
+            ) : (
+              <ul
+                className="FlagList FlagDash"
+                style={{ justifyContent: 'center' }}
+              >
+                <li
+                  style={{ border: 'none' }}
+                  className="FlagListItem FlagDashItem"
+                >
+                  <div className="FlagListTitle">
+                    No Past Transactions! <br /> Please vote for a team...
                   </div>
                 </li>
-              ))}
-            </ul>
+              </ul>
+            )}
           </div>
         </Overdrive>
       </div>

@@ -57,7 +57,14 @@ class FlagLoad extends Component {
           </div>
         </div>
         <div
-          className="back"
+          className="FlagLoadMessage"
+          onClick={this.props.onReset}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
+          Message
+        </div>
+        <div
+          className="FlagLoadBack"
           onClick={this.props.onReset}
           style={{ position: 'relative', zIndex: 1 }}
         >
