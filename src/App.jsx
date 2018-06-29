@@ -29,6 +29,7 @@ class App extends Component {
     web3: null,
     storageValue: 0,
 
+    dashOpen: false,
     flagVoted: false,
     flagSelected: null,
     pastTransactions: []
@@ -37,12 +38,17 @@ class App extends Component {
   voteFlag = () => {
     // Perform async request with flag data...
     this.setState({
+      dashOpen: true,
       flagVoted: true,
       flagSelected: null,
-      pastTransactions: this.state.pastTransactions.concat([
-        this.state.flagSelected
-      ])
+      pastTransactions: [this.state.flagSelected].concat(
+        this.state.pastTransactions
+      )
     })
+  }
+
+  toggleDash = () => {
+    this.setState({ dashOpen: !this.state.dashOpen })
   }
 
   resetFlag = () => {
@@ -188,7 +194,11 @@ class App extends Component {
           </div>
         </div>
 
-        <FlagDash transactions={transactions} />
+        <FlagDash
+          transactions={transactions}
+          isOpen={this.state.dashOpen}
+          toggleDash={this.toggleDash}
+        />
       </div>
     )
   }

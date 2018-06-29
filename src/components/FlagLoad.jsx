@@ -48,7 +48,7 @@ class FlagLoad extends Component {
 
   render() {
     return (
-      <div>
+      <div className="FlagLoad">
         <div id="container">
           <div id="stars" />
           <div id="wrapper">

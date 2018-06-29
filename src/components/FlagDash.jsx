@@ -2,19 +2,15 @@ import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 
 class FlagDash extends Component {
-  state = {
-    isOpen: false
-  }
-
   render() {
-    const isOpen = this.state.isOpen
+    const isOpen = this.props.isOpen
     return (
       <div>
         <Overdrive id="dash-toggle">
           <div
             className="FlagDashToggle"
+            onClick={this.props.toggleDash}
             style={{ bottom: !isOpen ? '20px' : '140px' }}
-            onClick={() => this.setState({ isOpen: !isOpen })}
           >
             {isOpen
               ? '⤋ Hide Past Transactions ⤋'

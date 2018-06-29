@@ -172,19 +172,21 @@ body {
 
 /* Load */
 
+.FlagLoad {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 #container {
-  top: 50%;
-  left: 50%;
   z-index: 1;
   width: 200px;
   height: 200px;
+  margin: 50px 0;
   overflow: hidden;
-  position: absolute;
   border-radius: 50%;
-  background-color: #ddd;
   animation: background 4s -3.5s infinite;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  transform: translateX(-50%) translateY(-50%);
 }
 
 #wrapper {
