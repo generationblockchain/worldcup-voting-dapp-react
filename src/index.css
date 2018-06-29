@@ -175,6 +175,7 @@ body {
 #container {
   top: 50%;
   left: 50%;
+  z-index: 1;
   width: 200px;
   height: 200px;
   overflow: hidden;
@@ -233,23 +234,11 @@ body {
   background-color: white;
 }
 
-.star_layer {
+.star-layer {
   width: 200px;
   height: 200px;
   position: absolute;
   transform-origin: 100px 0;
-}
-
-#loading_text {
-  width: 100%;
-  color: #555;
-  line-height: 1;
-  font-size: 40px;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 135px);
-  transform: translateY(-50%);
-  font-family: 'Roboto', sans-serif;
 }
 
 /* Animation */
@@ -268,19 +257,15 @@ body {
     transform: translate3d(-25%, 0, 0) rotate(0deg);
   }
   20% {
-    /*Sun goes down*/
     transform: translate3d(-25%, 0, 0) rotate(50deg);
   }
   30% {
-    /*Moon rises*/
     transform: translate3d(-25%, 0, 0) rotate(130deg);
   }
   70% {
-    /*Moon goes down*/
     transform: translate3d(-25%, 0, 0) rotate(240deg);
   }
   80% {
-    /*Sun rises*/
     transform: translate3d(-25%, 0, 0) rotate(310deg);
   }
   100% {
@@ -293,7 +278,6 @@ body {
     background-color: #2896c3;
   }
   50% {
-    /*Night*/
     background-color: #1e5267;
   }
   100% {
@@ -303,17 +287,14 @@ body {
 
 @keyframes stars {
   0% {
-    /*Invisible, not moving*/
     opacity: 0;
     padding-right: 0;
   }
   25% {
-    /*Start of movement*/
     opacity: 0;
     padding-right: 0;
   }
   50% {
-    /*Visible*/
     opacity: 1;
     padding-right: 25px;
   }

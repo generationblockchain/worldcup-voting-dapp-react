@@ -127,7 +127,7 @@ class App extends Component {
             </Overdrive>
           </div>
 
-          {/* {this.state.flagSelected ? (
+          {this.state.flagSelected ? (
             <FlagView
               onRemove={this.removeFlag}
               selected={this.state.flagSelected}
@@ -135,9 +135,7 @@ class App extends Component {
             />
           ) : (
             <FlagList flags={flags} onSelect={this.selectFlag} />
-          )} */}
-
-          <FlagLoad />
+          )}
 
           <div className="FlagSide">
             <Overdrive id="success">
