@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron:400');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,700');
 
 body {
   margin: 0;
@@ -240,6 +240,35 @@ body {
   height: 200px;
   position: absolute;
   transform-origin: 100px 0;
+}
+
+/* Dash */
+
+.FlagDashToggle {
+  left: 0;
+  right: 0;
+  z-index: 1;
+  bottom: 20px;
+  color: #fffc;
+  margin: 0 auto;
+  cursor: pointer;
+  position: fixed;
+  font-size: 20px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.FlagDashToggle:hover {
+  color: #fff;
+}
+
+.FlagDashView {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  position: fixed;
+  background-color: black;
 }
 
 /* Animation */

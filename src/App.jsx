@@ -9,8 +9,9 @@ import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
 import FlagList from './components/FlagList'
-import FlagLoad from './components/FlagLoad'
 import FlagView from './components/FlagView'
+import FlagLoad from './components/FlagLoad'
+import FlagDash from './components/FlagDash'
 
 const flags = [
   { code: 'br', country: 'Brazil', description: 0.0004 },
@@ -178,6 +179,8 @@ class App extends Component {
             </Overdrive>
           </div>
         </div>
+
+        <FlagDash />
       </div>
     )
   }
