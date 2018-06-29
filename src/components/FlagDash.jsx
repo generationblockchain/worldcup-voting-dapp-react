@@ -9,7 +9,7 @@ class FlagDash extends Component {
   render() {
     const isOpen = this.state.isOpen
     return (
-      <div className="FlagDash">
+      <div>
         <Overdrive id="dash-toggle">
           <div
             className="FlagDashToggle"
@@ -25,7 +25,42 @@ class FlagDash extends Component {
           <div
             className="FlagDashView"
             style={{ bottom: isOpen ? 0 : '-120px' }}
-          />
+          >
+            <ul className="FlagList FlagDash">
+              <li className="FlagListItem FlagDashItem">
+                <div>
+                  <span
+                    className="FlagListImage FlagDashImage"
+                    style={{
+                      backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/in.svg`)})`
+                    }}
+                  />
+                </div>
+                <div>
+                  <div className="FlagListTitle">flag.country</div>
+                  <div className="FlagListDescription">
+                    flag.description ETH
+                  </div>
+                </div>
+              </li>
+              <li className="FlagListItem FlagDashItem">
+                <div>
+                  <span
+                    className="FlagListImage FlagDashImage"
+                    style={{
+                      backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/in.svg`)})`
+                    }}
+                  />
+                </div>
+                <div>
+                  <div className="FlagListTitle">flag.country</div>
+                  <div className="FlagListDescription">
+                    flag.description ETH
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </Overdrive>
       </div>
     )

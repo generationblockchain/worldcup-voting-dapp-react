@@ -244,6 +244,13 @@ body {
 
 /* Dash */
 
+.FlagDash {
+  margin: 0 0;
+  display: flex;
+  max-width: unset;
+  overflow-y: scroll;
+}
+
 .FlagDashToggle {
   left: 0;
   right: 0;
@@ -269,6 +276,19 @@ body {
   height: 120px;
   position: fixed;
   background-color: black;
+}
+
+.FlagDashItem {
+  width: 300px;
+  height: 100px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.FlagDashImage {
+  width: 75px;
+  height: 75px;
 }
 
 /* Animation */
