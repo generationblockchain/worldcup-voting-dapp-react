@@ -24,6 +24,11 @@ const flags = [
   { code: 'es', country: 'Spain', description: 0.0256 }
 ]
 
+const actionStyles = (side, selected) => ({
+  margin: selected ? '0 150px' : null,
+  [side]: selected ? 0 : null
+})
+
 class App extends Component {
   state = {
     web3: null,
@@ -176,9 +181,7 @@ class App extends Component {
                 data-for="tip-r"
                 onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
-                style={{
-                  left: flagSelected ? 0 : null
-                }}
+                style={actionStyles('left', flagSelected)}
               />
             </Overdrive>
           </div>
@@ -205,9 +208,7 @@ class App extends Component {
                 data-for="tip-s"
                 onClick={this.voteFlag}
                 className="FlagSideIcon FlagSideIconCheck"
-                style={{
-                  right: flagSelected ? 0 : null
-                }}
+                style={actionStyles('right', flagSelected)}
               />
             </Overdrive>
           </div>

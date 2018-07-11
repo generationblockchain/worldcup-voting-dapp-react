@@ -56,7 +56,6 @@ body {
 
 .FlagSide {
   display: flex;
-  margin: 0 150px;
   align-items: center;
 }
 
@@ -238,10 +237,12 @@ body {
 }
 
 #container {
+  z-index: 1;
   width: 200px;
   height: 200px;
   margin: 50px 0;
   overflow: hidden;
+  position: relative;
   border-radius: 10%;
   animation: background 4s -3.5s infinite;
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
@@ -308,7 +309,7 @@ body {
   margin: 0 0;
   display: flex;
   max-width: unset;
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .FlagDashToggle {
@@ -340,8 +341,8 @@ body {
 }
 
 .FlagDashItem {
-  width: 300px;
   height: 100px;
+  padding: 0 5px;
   align-items: center;
   flex-direction: row;
   justify-content: space-evenly;
@@ -350,9 +351,14 @@ body {
 .FlagDashImage {
   width: 75px;
   height: 75px;
+  margin: 0 5px;
 }
 
-@media only screen and (max-width: 768px) {
+#transactions:hover {
+  background: none;
+}
+
+@media only screen and (max-width: 982px) {
   body {
     overflow: scroll;
   }
@@ -363,18 +369,11 @@ body {
 
   .FlagSide {
     margin: 0;
+    display: none;
   }
 
   .FlagSideIcon {
     position: absolute;
-  }
-
-  .FlagSideIconCheck {
-    display: none;
-  }
-
-  .FlagSideIconClose {
-    display: none;
   }
 
   .FlagAction {

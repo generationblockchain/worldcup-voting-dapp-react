@@ -57,6 +57,7 @@ class FlagDash extends Component {
                 style={{ justifyContent: 'center' }}
               >
                 <li
+                  id="transactions"
                   style={{ border: 'none' }}
                   className="FlagListItem FlagDashItem"
                 >
