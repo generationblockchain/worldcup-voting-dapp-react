@@ -8,8 +8,8 @@ import Particles from './components/Particles'
 
 render(
   <main>
-    <Particles />
     <App />
+    <Particles />
   </main>,
   document.getElementById('root')
 )

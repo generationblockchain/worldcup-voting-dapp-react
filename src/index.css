@@ -17,12 +17,22 @@ body {
     center center fixed;
 }
 
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .Logo {
+  margin: 50px;
+  align-self: flex-start;
+}
+
+.LogoImage {
   z-index: 1;
   width: 250px;
   cursor: pointer;
-  margin-top: 50px;
-  margin-left: 50px;
   position: relative;
 }
 
@@ -76,7 +86,7 @@ body {
   z-index: 1;
   padding: 0;
   margin: 0 auto;
-  max-width: 916px;
+  max-width: 776px;
   text-align: center;
 }
 
@@ -84,8 +94,8 @@ body {
   z-index: 1;
   color: #fff;
   margin: 10px;
-  width: 205px;
-  height: 225px;
+  width: 170px;
+  height: 185px;
   cursor: pointer;
   position: relative;
   border-radius: 10px;
@@ -101,13 +111,13 @@ body {
 }
 
 .FlagListContainer {
-  margin: 0 auto 20px;
+  margin: 5px auto 15px;
 }
 
 .FlagListImage {
-  width: 100px;
-  height: 100px;
-  border-radius: 98px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
   display: inline-block;
   background-color: #019;
   background-size: 100% 100%;
@@ -313,6 +323,16 @@ body {
 .FlagDashImage {
   width: 75px;
   height: 75px;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow: scroll;
+  }
+
+  .Logo {
+    align-self: unset;
+  }
 }
 
 /* Animation */

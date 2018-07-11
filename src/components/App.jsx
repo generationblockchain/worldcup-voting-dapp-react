@@ -117,7 +117,7 @@ class App extends Component {
     const transactions = this.state.pastTransactions
 
     return (
-      <div>
+      <div className="App">
         {/* Tooltip */}
         <ReactTooltip id="tip-r" place="left" type="error" effect="solid">
           Cancel
@@ -127,10 +127,10 @@ class App extends Component {
         </ReactTooltip>
 
         {/* Logo */}
-        <a href="https://generationblockchain.io">
+        <a className="Logo" href="https://generationblockchain.io">
           <img
             src="/logo.png"
-            className="Logo"
+            className="LogoImage"
             alt="Generation Blockchain Logo"
           />
         </a>
@@ -155,7 +155,7 @@ class App extends Component {
         {/* Main */}
         <div className="Flag">
           {/* Left Button */}
-          <div className="FlagSide">
+          {/* <div className="FlagSide">
             <Overdrive id="remove">
               <Remove
                 data-tip
@@ -165,7 +165,7 @@ class App extends Component {
                 style={{ left: flagSelected ? '' : '-1000px' }}
               />
             </Overdrive>
-          </div>
+          </div> */}
 
           {/* Flag */}
           {flagVoted ? (
@@ -181,7 +181,7 @@ class App extends Component {
           )}
 
           {/* Right Button */}
-          <div className="FlagSide">
+          {/* <div className="FlagSide">
             <Overdrive id="success">
               <Success
                 data-tip
@@ -191,7 +191,7 @@ class App extends Component {
                 style={{ right: flagSelected ? '' : '-1000px' }}
               />
             </Overdrive>
-          </div>
+          </div> */}
         </div>
 
         <FlagDash
