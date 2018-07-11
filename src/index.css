@@ -69,6 +69,7 @@ body {
 
 .FlagSideIconClose {
   color: #fffa;
+  left: -1000px;
 }
 
 .FlagSideIconClose:hover {
@@ -77,6 +78,7 @@ body {
 
 .FlagSideIconCheck {
   color: #fffa;
+  right: -1000px;
 }
 
 .FlagSideIconCheck:hover {
@@ -337,7 +339,24 @@ body {
     align-self: unset;
   }
 
+  .FlagSide {
+    margin: 0;
+  }
+
+  .FlagSideIcon {
+    position: absolute;
+  }
+
+  .FlagSideIconCheck {
+    display: none;
+  }
+
+  .FlagSideIconClose {
+    display: none;
+  }
+
   .FlagDashToggle {
+    bottom: 0;
     margin-top: 150px;
     position: relative;
   }

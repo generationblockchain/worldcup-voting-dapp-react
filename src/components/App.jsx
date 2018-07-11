@@ -157,17 +157,19 @@ class App extends Component {
         {/* Main */}
         <div className="Flag">
           {/* Left Button */}
-          {/* <div className="FlagSide">
+          <div className="FlagSide">
             <Overdrive id="remove">
               <Remove
                 data-tip
                 data-for="tip-r"
                 onClick={this.removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
-                style={{ left: flagSelected ? '' : '-1000px' }}
+                style={{
+                  left: flagSelected ? 0 : null
+                }}
               />
             </Overdrive>
-          </div> */}
+          </div>
 
           {/* Flag */}
           {flagVoted ? (
@@ -183,17 +185,19 @@ class App extends Component {
           )}
 
           {/* Right Button */}
-          {/* <div className="FlagSide">
+          <div className="FlagSide">
             <Overdrive id="success">
               <Success
                 data-tip
                 data-for="tip-s"
                 onClick={this.voteFlag}
                 className="FlagSideIcon FlagSideIconCheck"
-                style={{ right: flagSelected ? '' : '-1000px' }}
+                style={{
+                  right: flagSelected ? 0 : null
+                }}
               />
             </Overdrive>
-          </div> */}
+          </div>
         </div>
 
         <FlagDash
