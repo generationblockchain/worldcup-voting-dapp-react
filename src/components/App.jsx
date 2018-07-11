@@ -44,9 +44,9 @@ class App extends Component {
     // Perform async request with flag data...
     this.setState(
       {
-        dashOpen: true,
         flagVoted: true,
         flagSelected: null,
+        dashOpen: window.innerWidth > 982,
         pastTransactions: [this.state.flagSelected].concat(
           this.state.pastTransactions
         )
