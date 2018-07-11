@@ -60,7 +60,9 @@ class App extends Component {
   }
 
   selectFlag = flag => {
-    this.setState({ flagSelected: flag })
+    this.setState({ flagSelected: flag }, () => {
+      window.scrollTo(0, 0)
+    })
   }
 
   componentWillMount() {
