@@ -164,6 +164,28 @@ body {
   animation-timing-function: ease-in-out;
 }
 
+#vote {
+  background-color: #8dc572;
+}
+
+#cancel {
+  background-color: #be6464;
+}
+
+.FlagAction {
+  z-index: 1;
+  border: none;
+  margin: 20px;
+  color: white;
+  outline: none;
+  display: none;
+  padding: 20px;
+  font-size: 16px;
+  position: relative;
+  text-align: center;
+  border-radius: 5px;
+}
+
 .FlagAmountTitle {
   z-index: 1;
   color: white;
@@ -353,6 +375,10 @@ body {
 
   .FlagSideIconClose {
     display: none;
+  }
+
+  .FlagAction {
+    display: inline;
   }
 
   .FlagDashToggle {

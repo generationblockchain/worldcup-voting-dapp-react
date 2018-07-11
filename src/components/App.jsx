@@ -37,14 +37,19 @@ class App extends Component {
 
   voteFlag = () => {
     // Perform async request with flag data...
-    this.setState({
-      dashOpen: true,
-      flagVoted: true,
-      flagSelected: null,
-      pastTransactions: [this.state.flagSelected].concat(
-        this.state.pastTransactions
-      )
-    })
+    this.setState(
+      {
+        dashOpen: true,
+        flagVoted: true,
+        flagSelected: null,
+        pastTransactions: [this.state.flagSelected].concat(
+          this.state.pastTransactions
+        )
+      },
+      () => {
+        window.scrollTo(0, 0)
+      }
+    )
   }
 
   toggleDash = () => {
@@ -52,11 +57,18 @@ class App extends Component {
   }
 
   resetFlag = () => {
-    this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
+    this.setState(
+      { dashOpen: false, flagVoted: false, flagSelected: null },
+      () => {
+        window.scrollTo(0, 0)
+      }
+    )
   }
 
   removeFlag = () => {
-    this.setState({ flagSelected: null })
+    this.setState({ flagSelected: null }, () => {
+      window.scrollTo(0, 0)
+    })
   }
 
   selectFlag = flag => {
@@ -177,6 +189,7 @@ class App extends Component {
           ) : flagSelected ? (
             <FlagView
               selected={flagSelected}
+              onVote={this.voteFlag}
               onRemove={this.removeFlag}
               amount={flagSelected.description}
             />

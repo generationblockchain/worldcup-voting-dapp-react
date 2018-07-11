@@ -26,6 +26,7 @@ class FlagView extends Component {
         </Overdrive>
 
         <input
+          disabled
           type="text"
           value={this.state.amount}
           className="FlagAmountTitle"
@@ -38,6 +39,24 @@ class FlagView extends Component {
           style={{ width: '123px' }}
           className="FlagAmountTitle"
         />
+        <div className="FlagAction">
+          <button
+            id="vote"
+            type="button"
+            className="FlagAction"
+            onClick={this.props.onVote}
+          >
+            Vote
+          </button>
+          <button
+            id="cancel"
+            type="button"
+            className="FlagAction"
+            onClick={this.props.onRemove}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     )
   }
