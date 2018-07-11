@@ -1,15 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Particles from './Particles'
-import App from './App'
-
 import './index.css'
+
+import App from './components/App'
+import Particles from './components/Particles'
 
 render(
   <main>
-    <App />
     <Particles />
+    <App />
   </main>,
   document.getElementById('root')
 )

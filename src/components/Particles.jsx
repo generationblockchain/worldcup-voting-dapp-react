@@ -1,7 +1,7 @@
 import React from 'react'
 import ParticlesJS from 'react-particles-js'
 
-import params from '../params.json'
+import params from '../../params.json'
 
 const Particles = () => (
   <ParticlesJS

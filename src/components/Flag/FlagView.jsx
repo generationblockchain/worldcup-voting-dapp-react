@@ -18,7 +18,7 @@ class FlagView extends Component {
           <span
             className="FlagViewImage"
             style={{
-              backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/4x3/${
+              backgroundImage: `url(${require(`flag-icon-css/flags/4x3/${
                 this.props.selected.code
               }.svg`)})`
             }}

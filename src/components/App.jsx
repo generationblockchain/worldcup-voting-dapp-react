@@ -8,10 +8,10 @@ import Overdrive from 'react-overdrive'
 import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
-import FlagList from './components/FlagList'
-import FlagView from './components/FlagView'
-import FlagLoad from './components/FlagLoad'
-import FlagDash from './components/FlagDash'
+import FlagList from './Flag/FlagList'
+import FlagView from './Flag/FlagView'
+import FlagLoad from './Flag/FlagLoad'
+import FlagDash from './Flag/FlagDash'
 
 const flags = [
   { code: 'br', country: 'Brazil', description: 0.0004 },

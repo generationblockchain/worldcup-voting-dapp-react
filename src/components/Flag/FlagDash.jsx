@@ -36,7 +36,7 @@ class FlagDash extends Component {
                       <span
                         className="FlagListImage FlagDashImage"
                         style={{
-                          backgroundImage: `url(${require(`../../node_modules/flag-icon-css/flags/1x1/${
+                          backgroundImage: `url(${require(`flag-icon-css/flags/1x1/${
                             flag.code
                           }.svg`)})`
                         }}
