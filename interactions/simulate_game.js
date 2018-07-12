@@ -5,9 +5,12 @@ module.exports = async function(callback) {
     console.log(teams);
 
     let state_0 = await fetchGameState();
-    console.log(initial_state);
+    console.log(state_0);
 
-    submitVote(teams[0], web3.eth.accounts[1], 0.1);
+    let voteSuccess = await submitVote(teams[0], web3.eth.accounts[1], 0.1);
+
+    let state_1 = await fetchGameState();
+    console.log(state_1);
 }
 
 function getTeamNames(){
@@ -20,10 +23,29 @@ function getTeamNames(){
     });
 }
 
-function submitVote(teamName, fromAddress, etherAmount){
+function submitVote(teamName, voterAddress, etherAmount){
 
-    // Anshul TODO today (thursday)
-    
+    var voteBacking = web3.toWei(etherAmount, "ether");
+
+    return WorldCupGame.deployed()
+    .then(function(instance){
+        return instance.voteForTeam(teamName, {from: voterAddress, value: voteBacking});
+    })
+    .then(function(result) {
+        // result.tx => transaction hash, string
+        // result.logs => array of trigger events (1 item in this case)
+        // result.receipt => receipt object
+        console.log(result.tx);
+        console.log("\n");
+        console.log(result.logs);
+        console.log("\n");
+        console.log(result.receipt);
+
+        return true;
+
+    }).catch(function(e) {
+        return false;
+    });
 }
 
 function fetchGameState(){
@@ -56,16 +78,12 @@ function fetchGameState(){
             state.teamNamesAscii.push(web3.toAscii(teamBytes32).replace(/\0/g, ''));
         }
 
-        // console.log("Received team names: ");
-        // console.log(teamNamesAscii);
         
         return Promise.all(voteCountPromises);
     })
     .then(function(voteCountValues){
         state.voteCounts = voteCountValues.map(v => v.toNumber());
 
-        // console.log("Received vote counts: ");
-        // console.log(voteCounts);
 
         for (var teamBytes32 of state.teamNames){
             voteBackingPromises.push(instance.getVoteBackingInWeiForTeam(teamBytes32));
@@ -76,8 +94,6 @@ function fetchGameState(){
     })
     .then(function(voteBackingValues){
         state.voteBackings = voteBackingValues.map(v => v.toNumber());
-        // console.log("Received vote backings: ");
-        // console.log(voteBackings);
 
         return instance.getTotalVoteCount();
     })

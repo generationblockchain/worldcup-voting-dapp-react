@@ -37,6 +37,7 @@ contract GBWorldCupVotingGame {
     // Contract data storage (on EtherScan, e.g.) would still reveal value of 'currentState'.
     // It simply prevents solidity from making an automatic getter function for it
     GameState private currentState; 
+    GameState private constant INITIAL_STATE = GameState.AcceptingVotes;
     
     // The ONLY address that is allowed to declare game outcome
     // and restart game
@@ -47,7 +48,8 @@ contract GBWorldCupVotingGame {
     // available for voting.
     bytes32[] public teamNames;
   
-    uint gameIterationCounter;
+    // max value = 255
+    uint8 private gameIterationCounter;
     
     /* CUSTOM FUNCTION MODIFIERS */
     
@@ -75,7 +77,7 @@ contract GBWorldCupVotingGame {
         gameIterationCounter = 1;
         
         // start out in the "accepting votes" state
-        currentState = GameState.AcceptingVotes;
+        currentState = INITIAL_STATE;
         
         // store a reference to this list of team names
         // we'll be using it elsewhere in the contract
@@ -92,6 +94,7 @@ contract GBWorldCupVotingGame {
             teamBackingInWei[teamNames[i]] = 0;
         }
         
+        emit GameStarted(gameIterationCounter, gameReferee);
     }
     
     /* FUNCTIONS (TRANSACTIONS) 
@@ -115,20 +118,58 @@ contract GBWorldCupVotingGame {
         
         totalNumVotes += 1;
         totalVoteBacking += _voteBackingInWei;
-        
+
+        emit NewVote(gameIterationCounter, _voter, _teamName, _voteBackingInWei);
     }
     
-    function declareWinner(bytes32 winningTeam) public forRefereeOnly() {
+    function restartGame() public forRefereeOnly() inState(GameState.PayoutsCompleted) {
+        
+        // pro-actively handle overflow
+        if (gameIterationCounter == 255)
+            gameIterationCounter = 0;
+        else
+            gameIterationCounter += 1;
+
+        totalNumVotes = 0;
+        totalVoteBacking = 0;
+
+        // this should recover some gas
+        for(uint i = 0; i < teamNames.length; i++) {
+            delete teamBackingInWei[teamNames[i]];
+            delete teamVotes[teamNames[i]];
+        }
+
+        // reset state
+        currentState = GameState.AcceptingVotes;
+
+        emit GameStarted(gameIterationCounter, gameReferee);
+    }
+
+    function declareWinner(bytes32 winningTeam) public forRefereeOnly() inState(GameState.AcceptingVotes) {
+
+        require(validTeamName(winningTeam), "nonexistent team selected as winner");
+
         //update state 
         currentState = GameState.WinnerDeclared;
         
+        emit WinnerDeclared(gameIterationCounter, winningTeam);
+
         //call doPayouts
+        doPayouts();
     }
     
     // "private" means this function is only visible to this contract.
     // can only be called from within this contract
     function doPayouts() private inState(GameState.WinnerDeclared) {
         
+        // send money to people
+
+        //finally, update state 
+        currentState = GameState.PayoutsCompleted;
+
+        // log that payouts were completed so that listening web3 clients
+        // can update their UI state
+        emit PayoutsCompleted(gameIterationCounter);
     }
     
     /* FUNCTIONS (CALLS) 
@@ -136,6 +177,14 @@ contract GBWorldCupVotingGame {
      * These do not change the state of our system,
      * and return immediately.
      */
+
+    function getGameIteration() public view returns (uint8){
+        return gameIterationCounter;
+    }
+
+    function getCurrentState() public view returns (GameState) {
+        return currentState;
+    }
 
     function getTeamNames() public view returns (bytes32[]) {
         return teamNames;
