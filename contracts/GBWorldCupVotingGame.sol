@@ -65,8 +65,9 @@ contract GBWorldCupVotingGame {
     
     /* EVENTS */
     event GameStarted(uint indexed gameIteration, address referee);
-    event NewVote(uint indexed gameIteration, address voter, bytes32 teamName, uint backingInWei);
-    event WinnerDeclared(uint indexed gameIteration, bytes32 winningTeam);
+    event NewVote(uint indexed gameIteration, address voter, bytes32 teamName, uint backingInWei, uint totalVotes, uint totalBacking);
+    event WinningTeamDeclared(uint indexed gameIteration, bytes32 winningTeam);
+    event YouAreAWinner(uint indexed gameIterationCounter, address indexed winnerAddress, uint amountWon);
     event PayoutsCompleted(uint indexed gameIteration);
     
     /* CONSTRUCTOR */
@@ -119,9 +120,10 @@ contract GBWorldCupVotingGame {
         totalNumVotes += 1;
         totalVoteBacking += _voteBackingInWei;
 
-        emit NewVote(gameIterationCounter, _voter, _teamName, _voteBackingInWei);
+        emit NewVote(gameIterationCounter, _voter, _teamName, _voteBackingInWei, totalNumVotes, totalVoteBacking);
     }
     
+    // can only restart game once payouts are completed
     function restartGame() public forRefereeOnly() inState(GameState.PayoutsCompleted) {
         
         // pro-actively handle overflow
@@ -149,20 +151,65 @@ contract GBWorldCupVotingGame {
 
         require(validTeamName(winningTeam), "nonexistent team selected as winner");
 
-        //update state 
+        //update state and log event
         currentState = GameState.WinnerDeclared;
-        
-        emit WinnerDeclared(gameIterationCounter, winningTeam);
+        emit WinningTeamDeclared(gameIterationCounter, winningTeam);
 
-        //call doPayouts
-        doPayouts();
+        //call internal function to pay out winners
+        _doPayouts(winningTeam);
     }
     
     // "private" means this function is only visible to this contract.
     // can only be called from within this contract
-    function doPayouts() private inState(GameState.WinnerDeclared) {
+    function _doPayouts(bytes32 winningTeam) private inState(GameState.WinnerDeclared) {
         
-        // send money to people
+        // money to be split
+        uint totalWeiToBeSplit = address(this).balance;
+
+        // identify winning Votes.
+        // note: arrays and structs are stored in 'storage' 
+        // rather than memory eventhough they're local vars
+        Vote[] storage winningVotes = teamVotes[winningTeam];
+
+        // PAYOUT ALGORITHM:
+        //
+        // Voters who voted for the winning team split the pool of ether
+        // staked by all voters (including losers).
+        //
+        // The fraction of the overall pool that each correct voter receives
+        // is equal to:
+        //
+        // Voter's individual backing for the winning team / total backing for the winning team
+
+        // identify total Wei backing for this winning team
+        uint totalBackingForWinningTeam = teamBackingInWei[winningTeam];
+
+        // identify each voter's payout as a fraction of overall backing pool
+        for(uint i = 0; i < winningVotes.length; i++) {
+            
+            // WHO
+            address winningVoter = winningVotes[i].voter;
+            
+            // HOW MUCH HE OR SHE PUT IN
+            uint winningVotersBacking = winningVotes[i].voteBackingInWei;
+
+            // PAYOUT = WINNING FRACTION * TOTAL TO BE SPLIT
+            // 
+            // NOTE: the 'fixed' datatype (a.k.a float or double in other languages) is 
+            // not yet fully supported in solidity so rather than
+            // separately calculating winning fraction and then multiplying
+            // total by fraction, we re-order the math to avoid truncation. 
+            //
+            // 'amountWon' will still be truncated to an integer value but because it's denominated
+            // in Wei, the trunctation error is miniscule as a fraction of the voter's backing
+            uint amountWon = winningVotersBacking * totalWeiToBeSplit / totalBackingForWinningTeam;
+
+            // send the money
+            winningVoter.transfer(amountWon);
+
+            // log that we sent the money to this winner
+            emit YouAreAWinner(gameIterationCounter, winningVoter, amountWon);
+        }
 
         //finally, update state 
         currentState = GameState.PayoutsCompleted;
@@ -212,6 +259,13 @@ contract GBWorldCupVotingGame {
         require(validTeamName(_teamName), "invalid team name");
         
         return teamBackingInWei[_teamName];
+    }
+
+    // this should return the same value as getTotalVoteBackingInWei().
+    // we create it for testing purposes
+    // and use in our truffle scripts for educational purposes
+    function getContractBalance() public view returns (uint) {
+        return address(this).balance;
     }
     
     function validTeamName(bytes32 _teamName) public view returns (bool) {
