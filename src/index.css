@@ -24,9 +24,37 @@ body {
   justify-content: center;
 }
 
+.Header {
+  width: 100%;
+  display: flex;
+  background-color: #0002;
+  justify-content: space-between;
+}
+
+.Status {
+  display: flex;
+  align-items: center;
+}
+
+.Dot {
+  width: 10px;
+  margin: 5px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+#DotRed {
+  background-color: #f00;
+  box-shadow: 0 0 10px 2px #f00;
+}
+
+#DotGreen {
+  background-color: #0f0;
+  box-shadow: 0 0 10px 2px #0f0;
+}
+
 .Logo {
-  margin: 50px;
-  align-self: flex-start;
+  margin: 20px;
 }
 
 .LogoImage {
@@ -34,7 +62,7 @@ body {
   width: 250px;
   cursor: pointer;
   position: relative;
-  margin-bottom: -30px;
+  /* margin-bottom: -30px; */
 }
 
 .Question {

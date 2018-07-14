@@ -8,6 +8,10 @@ import Overdrive from 'react-overdrive'
 import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
+// import Flag from './Flag/Flag'
+import Header from './Header/Header'
+// import Dashboard from './Dashboard/Dashboard'
+
 import FlagList from './Flag/FlagList'
 import FlagView from './Flag/FlagView'
 import FlagLoad from './Flag/FlagLoad'
@@ -145,14 +149,7 @@ class App extends Component {
           Vote
         </ReactTooltip>
 
-        {/* Logo */}
-        <a className="Logo" href="https://generationblockchain.io">
-          <img
-            src="/logo.png"
-            className="LogoImage"
-            alt="Generation Blockchain Logo"
-          />
-        </a>
+        <Header />
 
         {/* Question */}
         {flagVoted ? (
