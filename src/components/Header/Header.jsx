@@ -1,6 +1,10 @@
 import React from 'react'
 
 class Header extends React.Component {
+  state = {
+    statusOpen: true
+  }
+
   render() {
     return (
       <div className="Header">
@@ -15,13 +19,20 @@ class Header extends React.Component {
 
         {/* Status */}
         <div className="Status">
-          <div id="DotRed" className="Dot" />
-          <h2 className="Question">Voting is OPEN</h2>
+          <div
+            className="Dot"
+            id={`Dot${this.state.statusOpen ? 'Green' : 'Red'}`}
+          />
+          <h2 className="Question">
+            Voting is {this.state.statusOpen ? 'OPEN' : 'CLOSED'}
+          </h2>
         </div>
 
         {/* Details */}
         <div className="Details">
-          <h2 className="Question">Voting is OPEN</h2>
+          <p className="Question">
+            Received <strong>N Votes</strong> with <strong>M ETH</strong>
+          </p>
         </div>
       </div>
     )
