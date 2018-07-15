@@ -27,8 +27,9 @@ const actionStyles = (side, selected) => ({
 
 class Flag extends React.Component {
   render() {
-    const flagVoted = this.props.flagVoted
-    const flagSelected = this.props.flagSelected
+    const { flagVoted, flagSelected } = this.props
+    const { voteFlag, resetFlag, selectFlag, removeFlag } = this.props
+
     return (
       <div>
         {/* Tooltip */}
@@ -40,7 +41,7 @@ class Flag extends React.Component {
         </ReactTooltip>
 
         {/* Question */}
-        {this.props.flagVoted ? (
+        {flagVoted ? (
           <h2 className="Question">Your vote has been submitted!</h2>
         ) : (
           <h2 className="Question">
@@ -63,7 +64,7 @@ class Flag extends React.Component {
               <Remove
                 data-tip
                 data-for="tip-r"
-                onClick={this.removeFlag}
+                onClick={removeFlag}
                 className="FlagSideIcon FlagSideIconClose"
                 style={actionStyles('left', flagSelected)}
               />
@@ -72,16 +73,16 @@ class Flag extends React.Component {
 
           {/* Flag */}
           {flagVoted ? (
-            <FlagLoad onReset={this.resetFlag} />
+            <FlagLoad onReset={resetFlag} />
           ) : flagSelected ? (
             <FlagView
               selected={flagSelected}
-              onVote={this.voteFlag}
-              onRemove={this.removeFlag}
+              onVote={voteFlag}
+              onRemove={removeFlag}
               amount={flagSelected.description}
             />
           ) : (
-            <FlagList flags={flags} onSelect={this.selectFlag} />
+            <FlagList flags={flags} onSelect={selectFlag} />
           )}
 
           {/* Right Button */}
@@ -90,7 +91,7 @@ class Flag extends React.Component {
               <Success
                 data-tip
                 data-for="tip-s"
-                onClick={this.voteFlag}
+                onClick={voteFlag}
                 className="FlagSideIcon FlagSideIconCheck"
                 style={actionStyles('right', flagSelected)}
               />

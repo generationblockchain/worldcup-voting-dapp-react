@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
@@ -7,7 +7,7 @@ import Flag from './Flag/Flag'
 import Header from './Header/Header'
 import Dashboard from './Dashboard/Dashboard'
 
-class App extends Component {
+class App extends React.Component {
   state = {
     web3: null,
     storageValue: 0,
@@ -95,21 +95,31 @@ class App extends Component {
   }
 
   render() {
-    const flagVoted = this.state.flagVoted
-    const flagSelected = this.state.flagSelected
-    const transactions = this.state.pastTransactions
+    const {
+      dashOpen,
+      flagVoted,
+      flagSelected,
+      pastTransactions: transactions
+    } = this.state
 
     return (
       <div className="App">
         <Header />
 
-        <Flag flagVoted={flagVoted} flagSelected={flagSelected} />
+        <Flag
+          flagVoted={flagVoted}
+          flagSelected={flagSelected}
+          voteFlag={this.voteFlag}
+          resetFlag={this.resetFlag}
+          removeFlag={this.removeFlag}
+          selectFlag={this.selectFlag}
+        />
 
-        {/* <Dashboard
+        <Dashboard
+          isOpen={dashOpen}
           transactions={transactions}
-          isOpen={this.state.dashOpen}
           toggleDash={this.toggleDash}
-        /> */}
+        />
       </div>
     )
   }
