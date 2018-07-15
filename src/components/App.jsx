@@ -1,37 +1,11 @@
 import React, { Component } from 'react'
-import ReactTooltip from 'react-tooltip'
-import Overdrive from 'react-overdrive'
 
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 
-import Remove from 'react-icons/lib/io/ios-close-empty'
-import Success from 'react-icons/lib/io/ios-checkmark-empty'
-
-// import Flag from './Flag/Flag'
+import Flag from './Flag/Flag'
 import Header from './Header/Header'
-// import Dashboard from './Dashboard/Dashboard'
-
-import FlagList from './Flag/FlagList'
-import FlagView from './Flag/FlagView'
-import FlagLoad from './Flag/FlagLoad'
-import FlagDash from './Flag/FlagDash'
-
-const flags = [
-  { code: 'br', country: 'Brazil', description: 0.0004 },
-  { code: 'de', country: 'Germany', description: 0.0007 },
-  { code: 'it', country: 'Italy', description: 0.0039 },
-  { code: 'ar', country: 'Argentina', description: 0.0054 },
-  { code: 'uy', country: 'Uruguay', description: 0.0079 },
-  { code: 'fr', country: 'France', description: 0.0101 },
-  { code: 'gb-eng', country: 'England', description: 0.0192 },
-  { code: 'es', country: 'Spain', description: 0.0256 }
-]
-
-const actionStyles = (side, selected) => ({
-  margin: selected ? '0 150px' : null,
-  [side]: selected ? 0 : null
-})
+import Dashboard from './Dashboard/Dashboard'
 
 class App extends Component {
   state = {
@@ -46,19 +20,14 @@ class App extends Component {
 
   voteFlag = () => {
     // Perform async request with flag data...
-    this.setState(
-      {
-        flagVoted: true,
-        flagSelected: null,
-        dashOpen: window.innerWidth > 982,
-        pastTransactions: [this.state.flagSelected].concat(
-          this.state.pastTransactions
-        )
-      },
-      () => {
-        window.scrollTo(0, 0)
-      }
-    )
+    this.setState({
+      flagVoted: true,
+      flagSelected: null,
+      dashOpen: window.innerWidth > 982,
+      pastTransactions: [this.state.flagSelected].concat(
+        this.state.pastTransactions
+      )
+    })
   }
 
   toggleDash = () => {
@@ -66,24 +35,15 @@ class App extends Component {
   }
 
   resetFlag = () => {
-    this.setState(
-      { dashOpen: false, flagVoted: false, flagSelected: null },
-      () => {
-        window.scrollTo(0, 0)
-      }
-    )
+    this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
   }
 
   removeFlag = () => {
-    this.setState({ flagSelected: null }, () => {
-      window.scrollTo(0, 0)
-    })
+    this.setState({ flagSelected: null })
   }
 
   selectFlag = flag => {
-    this.setState({ flagSelected: flag }, () => {
-      window.scrollTo(0, 0)
-    })
+    this.setState({ flagSelected: flag })
   }
 
   componentWillMount() {
@@ -141,81 +101,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        {/* Tooltip */}
-        <ReactTooltip id="tip-r" place="left" type="error" effect="solid">
-          Cancel
-        </ReactTooltip>
-        <ReactTooltip id="tip-s" place="right" type="success" effect="solid">
-          Vote
-        </ReactTooltip>
-
         <Header />
 
-        {/* Question */}
-        {flagVoted ? (
-          <h2 className="Question">Your vote has been submitted!</h2>
-        ) : (
-          <h2 className="Question">
-            I want to vote for{flagSelected ? (
-              <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
-                {' '}
-                {flagSelected.country}
-                {'!'}
-              </span>
-            ) : (
-              '...'
-            )}
-          </h2>
-        )}
+        <Flag flagVoted={flagVoted} flagSelected={flagSelected} />
 
-        {/* Main */}
-        <div className="Flag">
-          {/* Left Button */}
-          <div className="FlagSide">
-            <Overdrive id="remove">
-              <Remove
-                data-tip
-                data-for="tip-r"
-                onClick={this.removeFlag}
-                className="FlagSideIcon FlagSideIconClose"
-                style={actionStyles('left', flagSelected)}
-              />
-            </Overdrive>
-          </div>
-
-          {/* Flag */}
-          {flagVoted ? (
-            <FlagLoad onReset={this.resetFlag} />
-          ) : flagSelected ? (
-            <FlagView
-              selected={flagSelected}
-              onVote={this.voteFlag}
-              onRemove={this.removeFlag}
-              amount={flagSelected.description}
-            />
-          ) : (
-            <FlagList flags={flags} onSelect={this.selectFlag} />
-          )}
-
-          {/* Right Button */}
-          <div className="FlagSide">
-            <Overdrive id="success">
-              <Success
-                data-tip
-                data-for="tip-s"
-                onClick={this.voteFlag}
-                className="FlagSideIcon FlagSideIconCheck"
-                style={actionStyles('right', flagSelected)}
-              />
-            </Overdrive>
-          </div>
-        </div>
-
-        <FlagDash
+        {/* <Dashboard
           transactions={transactions}
           isOpen={this.state.dashOpen}
           toggleDash={this.toggleDash}
-        />
+        /> */}
       </div>
     )
   }

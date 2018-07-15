@@ -31,7 +31,10 @@ class Header extends React.Component {
         {/* Details */}
         <div className="Details">
           <p className="Question">
-            Received <strong>N Votes</strong> with <strong>M ETH</strong>
+            Votes Received: <strong>N</strong>
+          </p>
+          <p className="Question">
+            Total Stake: <strong>1.03 ETH</strong>
           </p>
         </div>
       </div>
