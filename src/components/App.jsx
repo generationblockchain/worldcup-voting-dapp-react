@@ -7,26 +7,40 @@ import Flag from './Flag/Flag'
 import Header from './Header/Header'
 import Dashboard from './Dashboard/Dashboard'
 
+const flags = [
+  { code: 'br', country: 'Brazil', value: 0.0004 },
+  { code: 'de', country: 'Germany', value: 0.0007 },
+  { code: 'it', country: 'Italy', value: 0.0039 },
+  { code: 'ar', country: 'Argentina', value: 0.0054 },
+  { code: 'uy', country: 'Uruguay', value: 0.0079 },
+  { code: 'fr', country: 'France', value: 0.0101 },
+  { code: 'gb-eng', country: 'England', value: 0.0192 },
+  { code: 'es', country: 'Spain', value: 0.0256 }
+]
+
 class App extends React.Component {
   state = {
     web3: null,
     storageValue: 0,
 
+    flags: flags,
     dashOpen: false,
+    transactions: [],
     flagVoted: false,
-    flagSelected: null,
-    pastTransactions: []
+    flagSelected: null
   }
 
-  voteFlag = () => {
+  voteFlag = value => {
     // Perform async request with flag data...
+
+    const { flagSelected } = this.state
+    flagSelected.value = value || flagSelected.value
+
     this.setState({
       flagVoted: true,
       flagSelected: null,
       dashOpen: window.innerWidth > 982,
-      pastTransactions: [this.state.flagSelected].concat(
-        this.state.pastTransactions
-      )
+      transactions: [flagSelected].concat(this.state.transactions)
     })
   }
 
@@ -96,10 +110,11 @@ class App extends React.Component {
 
   render() {
     const {
+      flags,
       dashOpen,
       flagVoted,
       flagSelected,
-      pastTransactions: transactions
+      transactions
     } = this.state
 
     return (
@@ -107,6 +122,7 @@ class App extends React.Component {
         <Header />
 
         <Flag
+          flags={flags}
           flagVoted={flagVoted}
           flagSelected={flagSelected}
           voteFlag={this.voteFlag}

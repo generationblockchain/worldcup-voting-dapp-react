@@ -83,6 +83,11 @@ body {
   text-align: center;
 }
 
+.QuestionName {
+  color: #ff6f31;
+  font-weight: bold;
+}
+
 .Flag {
   display: flex;
   padding-top: 20px;
@@ -124,7 +129,7 @@ body {
 
 /* List */
 
-.FlagList {
+.FlagListContent {
   padding: 0;
   margin: 0 auto;
   max-width: 776px;
@@ -176,6 +181,10 @@ body {
 /* View */
 
 .FlagView {
+  display: flex;
+}
+
+.FlagViewContent {
   display: flex;
   margin-top: -30px;
   text-align: center;

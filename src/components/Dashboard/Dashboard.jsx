@@ -4,6 +4,7 @@ import Overdrive from 'react-overdrive'
 class Dashboard extends React.Component {
   render() {
     const isOpen = this.props.isOpen
+
     return (
       <div>
         <Overdrive id="dash-toggle">
@@ -45,7 +46,7 @@ class Dashboard extends React.Component {
                     <div>
                       <div className="FlagListTitle">{flag.country}</div>
                       <div className="FlagListDescription">
-                        {flag.description} ETH
+                        {flag.value} ETH
                       </div>
                     </div>
                   </li>
