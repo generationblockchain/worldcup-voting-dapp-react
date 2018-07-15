@@ -17,23 +17,24 @@ class Header extends React.Component {
           />
         </a>
 
-        {/* Status */}
-        <div className="Status">
-          <div
-            className="Dot"
-            id={`Dot${this.state.statusOpen ? 'Green' : 'Red'}`}
-          />
-          <h2 className="Question">
-            Voting is {this.state.statusOpen ? 'OPEN' : 'CLOSED'}
-          </h2>
-        </div>
+        <div className="HeaderContent">
+          {/* Status */}
+          <div className="Status">
+            <div
+              className="Dot"
+              id={`Dot${this.state.statusOpen ? 'Green' : 'Red'}`}
+            />
+            <h2 className="HeaderText">
+              Voting is
+              <strong>{this.state.statusOpen ? ' OPEN' : ' CLOSED'}</strong>
+            </h2>
+          </div>
 
-        {/* Details */}
-        <div className="Details">
-          <p className="Question">
+          {/* Details */}
+          <p className="HeaderText">
             Votes Received: <strong>N</strong>
           </p>
-          <p className="Question">
+          <p className="HeaderText">
             Total Stake: <strong>1.03 ETH</strong>
           </p>
         </div>

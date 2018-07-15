@@ -32,6 +32,18 @@ body {
   justify-content: space-between;
 }
 
+.HeaderText {
+  color: #fff;
+  padding: 0 10px;
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.HeaderContent {
+  display: flex;
+  justify-content: space-between;
+}
+
 .Status {
   display: flex;
   align-items: center;
@@ -39,7 +51,6 @@ body {
 
 .Dot {
   width: 10px;
-  margin: 5px;
   height: 10px;
   border-radius: 50%;
 }
