@@ -59,8 +59,8 @@ class Dashboard extends React.Component {
               >
                 <li
                   id="transactions"
-                  style={{ border: 'none' }}
                   className="FlagListItem FlagDashItem"
+                  style={{ border: 'none', textAlign: 'center', width: '100%' }}
                 >
                   <div className="FlagListTitle">
                     No Past Transactions! <br /> Please vote for a team...
