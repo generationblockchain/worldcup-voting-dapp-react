@@ -95,8 +95,8 @@ class FlagView extends Component {
           <button
             id="vote"
             type="button"
-            onClick={voteFlag}
             className="FlagAction"
+            onClick={() => voteFlag(this.state.amount)}
           >
             Vote
           </button>
