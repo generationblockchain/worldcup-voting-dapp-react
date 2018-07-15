@@ -46,7 +46,7 @@ class Dashboard extends React.Component {
                     <div>
                       <div className="FlagListTitle">{flag.country}</div>
                       <div className="FlagListDescription">
-                        {flag.value} ETH
+                        {flag.amount} ETH
                       </div>
                     </div>
                   </li>

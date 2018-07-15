@@ -35,7 +35,7 @@ class Flag extends React.Component {
               voteFlag={voteFlag}
               removeFlag={removeFlag}
               flagSelected={flagSelected}
-              amount={flagSelected.value}
+              amount={flagSelected.amount}
             />
           ) : (
             <FlagList flags={flags} onSelect={selectFlag} />

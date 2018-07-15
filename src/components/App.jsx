@@ -8,14 +8,14 @@ import Header from './Header/Header'
 import Dashboard from './Dashboard/Dashboard'
 
 const flags = [
-  { code: 'br', country: 'Brazil', value: 0.0004 },
-  { code: 'de', country: 'Germany', value: 0.0007 },
-  { code: 'it', country: 'Italy', value: 0.0039 },
-  { code: 'ar', country: 'Argentina', value: 0.0054 },
-  { code: 'uy', country: 'Uruguay', value: 0.0079 },
-  { code: 'fr', country: 'France', value: 0.0101 },
-  { code: 'gb-eng', country: 'England', value: 0.0192 },
-  { code: 'es', country: 'Spain', value: 0.0256 }
+  { code: 'br', country: 'Brazil', amount: 0.0004 },
+  { code: 'de', country: 'Germany', amount: 0.0007 },
+  { code: 'it', country: 'Italy', amount: 0.0039 },
+  { code: 'ar', country: 'Argentina', amount: 0.0054 },
+  { code: 'uy', country: 'Uruguay', amount: 0.0079 },
+  { code: 'fr', country: 'France', amount: 0.0101 },
+  { code: 'gb-eng', country: 'England', amount: 0.0192 },
+  { code: 'es', country: 'Spain', amount: 0.0256 }
 ]
 
 class App extends React.Component {
@@ -23,25 +23,20 @@ class App extends React.Component {
     web3: null,
     storageValue: 0,
 
-    flags: flags,
-    dashOpen: false,
-    transactions: [],
+    flags,
     flagVoted: false,
-    flagSelected: null
+    flagSelected: null,
+
+    dashOpen: false,
+    transactions: []
   }
 
-  voteFlag = value => {
-    // Perform async request with flag data...
+  selectFlag = flag => {
+    this.setState({ flagSelected: flag })
+  }
 
-    const { flagSelected } = this.state
-    flagSelected.value = value || flagSelected.value
-
-    this.setState({
-      flagVoted: true,
-      flagSelected: null,
-      dashOpen: window.innerWidth > 982,
-      transactions: [flagSelected].concat(this.state.transactions)
-    })
+  removeFlag = () => {
+    this.setState({ flagSelected: null })
   }
 
   toggleDash = () => {
@@ -52,12 +47,27 @@ class App extends React.Component {
     this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
   }
 
-  removeFlag = () => {
-    this.setState({ flagSelected: null })
+  voteFlag = amount => {
+    // Perform async request with flag data...
+
+    const { flagSelected, transactions } = this.state
+    flagSelected.amount = amount || flagSelected.amount
+
+    this.setState({
+      flagVoted: true,
+      flagSelected: null,
+      dashOpen: window.innerWidth > 982,
+      transactions: [flagSelected].concat(transactions)
+    })
   }
 
-  selectFlag = flag => {
-    this.setState({ flagSelected: flag })
+  componentDidMount() {
+    // Logic to fetch flag votes and stake
+    this.setState({
+      flags: this.state.flags.map(flag =>
+        Object.assign({}, flag, { votes: 5, stake: 1.3 })
+      )
+    })
   }
 
   componentWillMount() {

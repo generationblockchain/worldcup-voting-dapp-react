@@ -25,7 +25,11 @@ class FlagList extends Component {
                 </Overdrive>
               </div>
               <div className="FlagListTitle">{flag.country}</div>
-              <div className="FlagListDescription">{flag.value} ETH</div>
+              <div className="FlagListDescription">
+                {flag.votes
+                  ? `${flag.votes} votes | ${flag.stake} ETH`
+                  : `${flag.amount} ETH`}
+              </div>
             </li>
           ))}
         </ul>
