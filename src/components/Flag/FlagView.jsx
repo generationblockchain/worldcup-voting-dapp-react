@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 import ReactTooltip from 'react-tooltip'
 
+import { getReferee } from '../../utils/tools'
+
 import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
 
@@ -22,6 +24,7 @@ class FlagView extends Component {
   }
 
   render() {
+    const isReferee = getReferee()
     const { flagSelected } = this.props
     const { voteFlag, removeFlag } = this.props
 
@@ -53,17 +56,26 @@ class FlagView extends Component {
             />
           </Overdrive>
 
-          <input
-            data-tip
-            type="text"
-            data-for="amount"
-            placeholder="000"
-            value={this.state.amount}
-            className="FlagAmountTitle"
-            onChange={this.changeAmount}
-          />
+          {!isReferee ? (
+            <input
+              data-tip
+              type="text"
+              data-for="amount"
+              placeholder="000"
+              value={this.state.amount}
+              className="FlagAmountTitle"
+              onChange={this.changeAmount}
+            />
+          ) : null}
 
-          <input disabled type="text" value="ETH" className="FlagAmountTitle" />
+          {!isReferee ? (
+            <input
+              disabled
+              type="text"
+              value="ETH"
+              className="FlagAmountTitle"
+            />
+          ) : null}
         </div>
 
         {/* Right Button */}

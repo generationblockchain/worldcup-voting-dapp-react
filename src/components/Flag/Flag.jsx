@@ -4,27 +4,30 @@ import FlagList from './FlagList'
 import FlagView from './FlagView'
 import FlagLoad from './FlagLoad'
 
+import {
+  getReferee,
+  preVoteUsrMsg,
+  preVoteRefMsg,
+  postVoteUsrMsg,
+  postVoteRefMsg
+} from '../../utils/tools'
+
 class Flag extends React.Component {
   render() {
+    const isReferee = getReferee()
     const { flags, flagVoted, flagSelected } = this.props
     const { voteFlag, resetFlag, selectFlag, removeFlag } = this.props
 
     return (
       <div>
         {/* Question */}
-        {flagVoted ? (
-          <h2 className="Question">Your vote has been submitted!</h2>
-        ) : (
-          <h2 className="Question">
-            I want to vote for{flagSelected ? (
-              <span className="QuestionName">
-                {` ${flagSelected.country}!`}
-              </span>
-            ) : (
-              '...'
-            )}
-          </h2>
-        )}
+        {isReferee
+          ? flagVoted
+            ? postVoteRefMsg
+            : preVoteRefMsg(flagSelected)
+          : flagVoted
+            ? postVoteUsrMsg
+            : preVoteUsrMsg(flagSelected)}
 
         {/* Main */}
         <div className="Flag">

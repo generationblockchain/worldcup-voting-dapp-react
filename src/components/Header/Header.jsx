@@ -1,11 +1,9 @@
 import React from 'react'
 
 class Header extends React.Component {
-  state = {
-    statusOpen: true
-  }
-
   render() {
+    const { voteOpen, totalVotes, totalStake } = this.props
+
     return (
       <div className="Header">
         {/* Logo */}
@@ -20,22 +18,19 @@ class Header extends React.Component {
         <div className="HeaderContent">
           {/* Status */}
           <div className="Status">
-            <div
-              className="Dot"
-              id={`Dot${this.state.statusOpen ? 'Green' : 'Red'}`}
-            />
+            <div className="Dot" id={`Dot${voteOpen ? 'Green' : 'Red'}`} />
             <h2 className="HeaderText">
               Voting is
-              <strong>{this.state.statusOpen ? ' OPEN' : ' CLOSED'}</strong>
+              <strong>{voteOpen ? ' OPEN' : ' CLOSED'}</strong>
             </h2>
           </div>
 
           {/* Details */}
           <p className="HeaderText">
-            Votes Received: <strong>N</strong>
+            Votes Received: <strong>{totalVotes || 0}</strong>
           </p>
           <p className="HeaderText">
-            Total Stake: <strong>1.03 ETH</strong>
+            Total Stake: <strong>{totalStake || 0} ETH</strong>
           </p>
         </div>
       </div>

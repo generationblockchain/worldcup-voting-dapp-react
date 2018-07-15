@@ -28,7 +28,11 @@ class App extends React.Component {
     flagSelected: null,
 
     dashOpen: false,
-    transactions: []
+    transactions: [],
+
+    voteOpen: true,
+    totalVotes: 1000,
+    totalStake: 1000
   }
 
   selectFlag = flag => {
@@ -121,15 +125,22 @@ class App extends React.Component {
   render() {
     const {
       flags,
+      voteOpen,
       dashOpen,
       flagVoted,
+      totalVotes,
+      totalStake,
       flagSelected,
       transactions
     } = this.state
 
     return (
       <div className="App">
-        <Header />
+        <Header
+          voteOpen={voteOpen}
+          totalVotes={totalVotes}
+          totalStake={totalStake}
+        />
 
         <Flag
           flags={flags}
