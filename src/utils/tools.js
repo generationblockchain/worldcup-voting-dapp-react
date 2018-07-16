@@ -3,6 +3,13 @@ import React from 'react'
 export const getReferee = () =>
   window.location.pathname.replace(/^\/([^/]*).*$/, '$1') === 'referee'
 
+export const winnerUsrMsg = winner => (
+  <h2 className="Question">
+    {<span className="QuestionName">{`${winner.country} `}</span>}
+    won the World Cup!
+  </h2>
+)
+
 export const preVoteUsrMsg = flagSelected => (
   <h2 className="Question">
     I want to vote for{flagSelected ? (

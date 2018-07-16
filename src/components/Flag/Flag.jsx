@@ -6,6 +6,7 @@ import FlagLoad from './FlagLoad'
 
 import {
   getReferee,
+  winnerUsrMsg,
   preVoteUsrMsg,
   preVoteRefMsg,
   postVoteUsrMsg,
@@ -27,7 +28,9 @@ class Flag extends React.Component {
             : preVoteRefMsg(flagSelected)
           : flagVoted
             ? postVoteUsrMsg
-            : preVoteUsrMsg(flagSelected)}
+            : !voteOpen
+              ? winnerUsrMsg(winner)
+              : preVoteUsrMsg(flagSelected)}
 
         {/* Main */}
         <div className="Flag">

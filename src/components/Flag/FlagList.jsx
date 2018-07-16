@@ -38,7 +38,9 @@ class FlagList extends React.Component {
               <div className="FlagListTitle">{flag.country}</div>
               <div className="FlagListDescription">
                 {flag.votes
-                  ? `${flag.votes} votes | ${flag.stake} ETH`
+                  ? !voteOpen && winner.code === flag.code
+                    ? `${flag.votes} voters split ${flag.stake} ETH`
+                    : `${flag.votes} votes | ${flag.stake} ETH`
                   : `${flag.amount} ETH`}
               </div>
             </li>
