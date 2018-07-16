@@ -15,8 +15,8 @@ import {
 class Flag extends React.Component {
   render() {
     const isReferee = getReferee()
-    const { flags, flagVoted, flagSelected } = this.props
     const { voteFlag, resetFlag, selectFlag, removeFlag } = this.props
+    const { flags, winner, voteOpen, flagVoted, flagSelected } = this.props
 
     return (
       <div>
@@ -41,7 +41,12 @@ class Flag extends React.Component {
               amount={flagSelected.amount}
             />
           ) : (
-            <FlagList flags={flags} onSelect={selectFlag} />
+            <FlagList
+              flags={flags}
+              winner={winner}
+              voteOpen={voteOpen}
+              onSelect={selectFlag}
+            />
           )}
         </div>
       </div>

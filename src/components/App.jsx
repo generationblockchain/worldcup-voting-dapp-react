@@ -30,7 +30,8 @@ class App extends React.Component {
     dashOpen: false,
     transactions: [],
 
-    voteOpen: true,
+    winner: { code: 'fr', country: 'France', amount: 0.0101 },
+    voteOpen: false,
     totalVotes: 1000,
     totalStake: 1000
   }
@@ -125,8 +126,9 @@ class App extends React.Component {
   render() {
     const {
       flags,
-      voteOpen,
+      winner,
       dashOpen,
+      voteOpen,
       flagVoted,
       totalVotes,
       totalStake,
@@ -144,6 +146,8 @@ class App extends React.Component {
 
         <Flag
           flags={flags}
+          winner={winner}
+          voteOpen={voteOpen}
           flagVoted={flagVoted}
           flagSelected={flagSelected}
           voteFlag={this.voteFlag}

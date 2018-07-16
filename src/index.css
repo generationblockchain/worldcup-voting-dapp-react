@@ -157,6 +157,27 @@ body {
   border: 2px solid #ffffff80;
 }
 
+.FlagListItemLost {
+  color: #fff5;
+  background: #0005;
+  border: 2px solid #f005;
+}
+
+.FlagListItemLost:hover {
+  background: #0005;
+  border: 2px solid #f005;
+}
+
+.FlagListItemWon {
+  background: #0f05;
+  border: 2px solid #0f0a;
+}
+
+.FlagListItemWon:hover {
+  background: #0f05;
+  border: 2px solid #0f0a;
+}
+
 .FlagListContainer {
   margin: 5px auto 15px;
 }
@@ -168,6 +189,18 @@ body {
   display: inline-block;
   background-color: #019;
   background-size: 100% 100%;
+}
+
+.FlagListImageLost {
+  filter: brightness(50%);
+}
+
+.FlagListImageWon {
+  animation-name: spin;
+  animation-delay: 200ms;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 .FlagListTitle {
