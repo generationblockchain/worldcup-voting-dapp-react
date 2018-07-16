@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Overdrive from 'react-overdrive'
 
-class FlagDash extends Component {
+class Dashboard extends React.Component {
   render() {
     const isOpen = this.props.isOpen
+
     return (
       <div>
         <Overdrive id="dash-toggle">
@@ -45,7 +46,7 @@ class FlagDash extends Component {
                     <div>
                       <div className="FlagListTitle">{flag.country}</div>
                       <div className="FlagListDescription">
-                        {flag.description} ETH
+                        {flag.amount} ETH
                       </div>
                     </div>
                   </li>
@@ -58,8 +59,8 @@ class FlagDash extends Component {
               >
                 <li
                   id="transactions"
-                  style={{ border: 'none' }}
                   className="FlagListItem FlagDashItem"
+                  style={{ border: 'none', textAlign: 'center', width: '100%' }}
                 >
                   <div className="FlagListTitle">
                     No Past Transactions! <br /> Please vote for a team...
@@ -74,4 +75,4 @@ class FlagDash extends Component {
   }
 }
 
-export default FlagDash
+export default Dashboard

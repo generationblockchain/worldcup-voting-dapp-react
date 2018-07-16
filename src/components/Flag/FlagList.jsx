@@ -1,33 +1,52 @@
-import React, { Component } from 'react'
+import React from 'react'
+import classNames from 'classnames'
 import Overdrive from 'react-overdrive'
 
-class FlagList extends Component {
+class FlagList extends React.Component {
   render() {
+    const { winner, voteOpen } = this.props
+
     return (
-      <ul className="FlagList">
-        {this.props.flags.map(flag => (
-          <li
-            key={flag.code}
-            className="FlagListItem"
-            onClick={() => this.props.onSelect(flag)}
-          >
-            <div className="FlagListContainer">
-              <Overdrive id={flag.code} duration={100}>
-                <span
-                  className="FlagListImage"
-                  style={{
-                    backgroundImage: `url(${require(`flag-icon-css/flags/1x1/${
-                      flag.code
-                    }.svg`)})`
-                  }}
-                />
-              </Overdrive>
-            </div>
-            <div className="FlagListTitle">{flag.country}</div>
-            <div className="FlagListDescription">{flag.description} ETH</div>
-          </li>
-        ))}
-      </ul>
+      <div className="FlagList">
+        <ul className="FlagListContent">
+          {this.props.flags.map(flag => (
+            <li
+              key={flag.code}
+              onClick={() => {
+                if (voteOpen) this.props.onSelect(flag)
+              }}
+              className={classNames('FlagListItem', {
+                FlagListItemWon: !voteOpen && winner.code === flag.code,
+                FlagListItemLost: !voteOpen && winner.code !== flag.code
+              })}
+            >
+              <div className="FlagListContainer">
+                <Overdrive id={flag.code} duration={100}>
+                  <span
+                    className={classNames('FlagListImage', {
+                      FlagListImageWon: !voteOpen && winner.code === flag.code,
+                      FlagListImageLost: !voteOpen && winner.code !== flag.code
+                    })}
+                    style={{
+                      backgroundImage: `url(${require(`flag-icon-css/flags/1x1/${
+                        flag.code
+                      }.svg`)})`
+                    }}
+                  />
+                </Overdrive>
+              </div>
+              <div className="FlagListTitle">{flag.country}</div>
+              <div className="FlagListDescription">
+                {flag.votes
+                  ? !voteOpen && winner.code === flag.code
+                    ? `${flag.votes} voters split ${flag.stake} ETH`
+                    : `${flag.votes} votes | ${flag.stake} ETH`
+                  : `${flag.amount} ETH`}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 }

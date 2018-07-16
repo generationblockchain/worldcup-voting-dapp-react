@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron:400');
-@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Kanit:300,400');
 
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Kanit', sans-serif;
   background: linear-gradient(
       to left top,
       #ff6f31,
@@ -21,12 +21,52 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.Header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #0002;
+  justify-content: space-between;
+}
+
+.HeaderText {
+  color: #fff;
+  padding: 0 10px;
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.HeaderContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Status {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
+.Dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+#DotRed {
+  background-color: #f00;
+  box-shadow: 0 0 10px 2px #f00;
+}
+
+#DotGreen {
+  background-color: #0f0;
+  box-shadow: 0 0 10px 2px #0f0;
+}
+
 .Logo {
-  margin: 50px;
-  align-self: flex-start;
+  margin: 20px;
 }
 
 .LogoImage {
@@ -34,15 +74,19 @@ body {
   width: 250px;
   cursor: pointer;
   position: relative;
-  margin-bottom: -30px;
 }
 
 .Question {
   color: #fff;
   padding: 0 10px;
   font-size: 34px;
-  font-weight: 400;
+  font-weight: 300;
   text-align: center;
+}
+
+.QuestionName {
+  color: #ff6f31;
+  font-weight: bold;
 }
 
 .Flag {
@@ -86,7 +130,7 @@ body {
 
 /* List */
 
-.FlagList {
+.FlagListContent {
   padding: 0;
   margin: 0 auto;
   max-width: 776px;
@@ -113,6 +157,27 @@ body {
   border: 2px solid #ffffff80;
 }
 
+.FlagListItemLost {
+  color: #fff5;
+  background: #0005;
+  border: 2px solid #f005;
+}
+
+.FlagListItemLost:hover {
+  background: #0005;
+  border: 2px solid #f005;
+}
+
+.FlagListItemWon {
+  background: #0f05;
+  border: 2px solid #0f0a;
+}
+
+.FlagListItemWon:hover {
+  background: #0f05;
+  border: 2px solid #0f0a;
+}
+
 .FlagListContainer {
   margin: 5px auto 15px;
 }
@@ -126,6 +191,18 @@ body {
   background-size: 100% 100%;
 }
 
+.FlagListImageLost {
+  filter: brightness(50%);
+}
+
+.FlagListImageWon {
+  animation-name: spin;
+  animation-delay: 200ms;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
 .FlagListTitle {
   font-size: 20px;
   margin-bottom: 10px;
@@ -133,11 +210,16 @@ body {
 
 .FlagListDescription {
   font-size: 14px;
+  font-weight: 300;
 }
 
 /* View */
 
 .FlagView {
+  display: flex;
+}
+
+.FlagViewContent {
   display: flex;
   margin-top: -30px;
   text-align: center;
@@ -306,6 +388,7 @@ body {
 /* Dash */
 
 .FlagDash {
+  padding: 0;
   margin: 0 0;
   display: flex;
   max-width: unset;
@@ -322,7 +405,7 @@ body {
   cursor: pointer;
   position: fixed;
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 300;
   text-align: center;
 }
 
@@ -337,7 +420,7 @@ body {
   z-index: 1;
   height: 120px;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .FlagDashItem {
@@ -363,8 +446,17 @@ body {
     overflow: scroll;
   }
 
-  .Logo {
-    align-self: unset;
+  .Header {
+    flex-direction: column;
+  }
+
+  .HeaderContent {
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .FlagView {
+    flex-direction: column;
   }
 
   .FlagSide {
