@@ -1,60 +1,47 @@
-import React, { Component } from 'react'
-import ReactTooltip from 'react-tooltip'
-import Overdrive from 'react-overdrive'
+import React from 'react'
 
 // import getWeb3 from './utils/getWeb3'
 // import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 
-import Remove from 'react-icons/lib/io/ios-close-empty'
-import Success from 'react-icons/lib/io/ios-checkmark-empty'
-
-import FlagList from './Flag/FlagList'
-import FlagView from './Flag/FlagView'
-import FlagLoad from './Flag/FlagLoad'
-import FlagDash from './Flag/FlagDash'
+import Flag from './Flag/Flag'
+import Header from './Header/Header'
+import Dashboard from './Dashboard/Dashboard'
 
 const flags = [
-  { code: 'br', country: 'Brazil', description: 0.0004 },
-  { code: 'de', country: 'Germany', description: 0.0007 },
-  { code: 'it', country: 'Italy', description: 0.0039 },
-  { code: 'ar', country: 'Argentina', description: 0.0054 },
-  { code: 'uy', country: 'Uruguay', description: 0.0079 },
-  { code: 'fr', country: 'France', description: 0.0101 },
-  { code: 'gb-eng', country: 'England', description: 0.0192 },
-  { code: 'es', country: 'Spain', description: 0.0256 }
+  { code: 'br', country: 'Brazil', amount: 0.0004 },
+  { code: 'de', country: 'Germany', amount: 0.0007 },
+  { code: 'it', country: 'Italy', amount: 0.0039 },
+  { code: 'ar', country: 'Argentina', amount: 0.0054 },
+  { code: 'uy', country: 'Uruguay', amount: 0.0079 },
+  { code: 'fr', country: 'France', amount: 0.0101 },
+  { code: 'gb-eng', country: 'England', amount: 0.0192 },
+  { code: 'es', country: 'Spain', amount: 0.0256 }
 ]
 
-const actionStyles = (side, selected) => ({
-  margin: selected ? '0 150px' : null,
-  [side]: selected ? 0 : null
-})
-
-class App extends Component {
+class App extends React.Component {
   state = {
     web3: null,
     storageValue: 0,
 
-    dashOpen: false,
+    flags,
     flagVoted: false,
     flagSelected: null,
-    pastTransactions: []
+
+    dashOpen: false,
+    transactions: [],
+
+    winner: null,
+    voteOpen: true,
+    totalVotes: 1000,
+    totalStake: 1000
   }
 
-  voteFlag = () => {
-    // Perform async request with flag data...
-    this.setState(
-      {
-        flagVoted: true,
-        flagSelected: null,
-        dashOpen: window.innerWidth > 982,
-        pastTransactions: [this.state.flagSelected].concat(
-          this.state.pastTransactions
-        )
-      },
-      () => {
-        window.scrollTo(0, 0)
-      }
-    )
+  selectFlag = flag => {
+    this.setState({ flagSelected: flag })
+  }
+
+  removeFlag = () => {
+    this.setState({ flagSelected: null })
   }
 
   toggleDash = () => {
@@ -62,23 +49,29 @@ class App extends Component {
   }
 
   resetFlag = () => {
-    this.setState(
-      { dashOpen: false, flagVoted: false, flagSelected: null },
-      () => {
-        window.scrollTo(0, 0)
-      }
-    )
+    this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
   }
 
-  removeFlag = () => {
-    this.setState({ flagSelected: null }, () => {
-      window.scrollTo(0, 0)
+  voteFlag = amount => {
+    // Perform async request with flag data...
+
+    const { flagSelected, transactions } = this.state
+    flagSelected.amount = amount || flagSelected.amount
+
+    this.setState({
+      flagVoted: true,
+      flagSelected: null,
+      dashOpen: window.innerWidth > 982,
+      transactions: [flagSelected].concat(transactions)
     })
   }
 
-  selectFlag = flag => {
-    this.setState({ flagSelected: flag }, () => {
-      window.scrollTo(0, 0)
+  componentDidMount() {
+    // Logic to fetch flag votes and stake
+    this.setState({
+      flags: this.state.flags.map(flag =>
+        Object.assign({}, flag, { votes: 5, stake: 1.3 })
+      )
     })
   }
 
@@ -131,92 +124,41 @@ class App extends Component {
   }
 
   render() {
-    const flagVoted = this.state.flagVoted
-    const flagSelected = this.state.flagSelected
-    const transactions = this.state.pastTransactions
+    const {
+      flags,
+      winner,
+      dashOpen,
+      voteOpen,
+      flagVoted,
+      totalVotes,
+      totalStake,
+      flagSelected,
+      transactions
+    } = this.state
 
     return (
       <div className="App">
-        {/* Tooltip */}
-        <ReactTooltip id="tip-r" place="left" type="error" effect="solid">
-          Cancel
-        </ReactTooltip>
-        <ReactTooltip id="tip-s" place="right" type="success" effect="solid">
-          Vote
-        </ReactTooltip>
+        <Header
+          voteOpen={voteOpen}
+          totalVotes={totalVotes}
+          totalStake={totalStake}
+        />
 
-        {/* Logo */}
-        <a className="Logo" href="https://generationblockchain.io">
-          <img
-            src="/logo.png"
-            className="LogoImage"
-            alt="Generation Blockchain Logo"
-          />
-        </a>
+        <Flag
+          flags={flags}
+          winner={winner}
+          voteOpen={voteOpen}
+          flagVoted={flagVoted}
+          flagSelected={flagSelected}
+          voteFlag={this.voteFlag}
+          resetFlag={this.resetFlag}
+          removeFlag={this.removeFlag}
+          selectFlag={this.selectFlag}
+        />
 
-        {/* Question */}
-        {flagVoted ? (
-          <h2 className="Question">Your vote has been submitted!</h2>
-        ) : (
-          <h2 className="Question">
-            I want to vote for{flagSelected ? (
-              <span style={{ fontWeight: 'bold', color: '#ff6f31' }}>
-                {' '}
-                {flagSelected.country}
-                {'!'}
-              </span>
-            ) : (
-              '...'
-            )}
-          </h2>
-        )}
-
-        {/* Main */}
-        <div className="Flag">
-          {/* Left Button */}
-          <div className="FlagSide">
-            <Overdrive id="remove">
-              <Remove
-                data-tip
-                data-for="tip-r"
-                onClick={this.removeFlag}
-                className="FlagSideIcon FlagSideIconClose"
-                style={actionStyles('left', flagSelected)}
-              />
-            </Overdrive>
-          </div>
-
-          {/* Flag */}
-          {flagVoted ? (
-            <FlagLoad onReset={this.resetFlag} />
-          ) : flagSelected ? (
-            <FlagView
-              selected={flagSelected}
-              onVote={this.voteFlag}
-              onRemove={this.removeFlag}
-              amount={flagSelected.description}
-            />
-          ) : (
-            <FlagList flags={flags} onSelect={this.selectFlag} />
-          )}
-
-          {/* Right Button */}
-          <div className="FlagSide">
-            <Overdrive id="success">
-              <Success
-                data-tip
-                data-for="tip-s"
-                onClick={this.voteFlag}
-                className="FlagSideIcon FlagSideIconCheck"
-                style={actionStyles('right', flagSelected)}
-              />
-            </Overdrive>
-          </div>
-        </div>
-
-        <FlagDash
+        <Dashboard
+          isOpen={dashOpen}
           transactions={transactions}
-          isOpen={this.state.dashOpen}
           toggleDash={this.toggleDash}
         />
       </div>
