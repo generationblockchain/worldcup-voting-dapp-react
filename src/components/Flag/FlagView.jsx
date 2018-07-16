@@ -15,6 +15,17 @@ const actionStyles = (side, selected) => ({
 class FlagView extends Component {
   state = { amount: this.props.amount }
 
+  handleTick = () => {
+    const { amount } = this.state
+    const { voteFlag } = this.props
+    if (!getReferee()) voteFlag(amount)
+    else {
+      // Set voteOpen to false
+      // Replace to make team a winner...
+      this.props.voteFlag(this.state.amount)
+    }
+  }
+
   changeAmount = event => {
     const amount = event.target.value
     const isShort = amount.length < 10
@@ -84,8 +95,8 @@ class FlagView extends Component {
             <Success
               data-tip
               data-for="tip-s"
+              onClick={this.handleTick}
               className="FlagSideIcon FlagSideIconCheck"
-              onClick={() => voteFlag(this.state.amount)}
               style={actionStyles('right', flagSelected)}
             />
           </Overdrive>

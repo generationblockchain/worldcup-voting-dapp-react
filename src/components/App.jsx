@@ -30,8 +30,8 @@ class App extends React.Component {
     dashOpen: false,
     transactions: [],
 
-    winner: { code: 'fr', country: 'France', amount: 0.0101 },
-    voteOpen: false,
+    winner: null,
+    voteOpen: true,
     totalVotes: 1000,
     totalStake: 1000
   }
