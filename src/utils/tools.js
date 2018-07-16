@@ -10,6 +10,14 @@ export const winnerUsrMsg = winner => (
   </h2>
 )
 
+export const winnerRefMsg = winner => (
+  <h2 className="Question">
+    You have made
+    {<span className="QuestionName">{` ${winner.country} `}</span>}
+    the winner!
+  </h2>
+)
+
 export const preVoteUsrMsg = flagSelected => (
   <h2 className="Question">
     I want to vote for{flagSelected ? (
