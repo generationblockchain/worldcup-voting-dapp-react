@@ -4,8 +4,10 @@ import FlagList from './FlagList'
 import FlagView from './FlagView'
 import FlagLoad from './FlagLoad'
 
+import { ChasingDots } from 'better-react-spinkit'
+
 import {
-  getReferee,
+  checkRefereeURL,
   winnerUsrMsg,
   winnerRefMsg,
   preVoteUsrMsg,
@@ -16,14 +18,15 @@ import {
 
 class Flag extends React.Component {
   render() {
-    const isReferee = getReferee()
-    const { voteFlag, resetFlag, selectFlag, removeFlag } = this.props
+    const isRefereeURL = checkRefereeURL()
+    const userIsReferee = this.props.isRefereeAddress
+    const { voteFlag, resetFlag, selectFlag, removeFlag, stateIsLoaded } = this.props
     const { flags, winner, voteOpen, flagVoted, flagSelected } = this.props
 
     return (
       <div>
         {/* Question */}
-        {isReferee
+        {isRefereeURL
           ? flagVoted
             ? postVoteRefMsg
             : !voteOpen
@@ -37,23 +40,29 @@ class Flag extends React.Component {
 
         {/* Main */}
         <div className="Flag">
-          {flagVoted ? (
-            <FlagLoad onReset={resetFlag} />
-          ) : flagSelected ? (
-            <FlagView
-              voteFlag={voteFlag}
-              removeFlag={removeFlag}
-              flagSelected={flagSelected}
-              amount={flagSelected.amount}
-            />
-          ) : (
-            <FlagList
-              flags={flags}
-              winner={winner}
-              voteOpen={voteOpen}
-              onSelect={selectFlag}
-            />
+          { stateIsLoaded ? (
+              flagVoted ? (
+                <FlagLoad onReset={resetFlag} />
+              ) : flagSelected ? (
+                <FlagView
+                  voteFlag={voteFlag}
+                  removeFlag={removeFlag}
+                  flagSelected={flagSelected}
+                  amount={flagSelected.amount}
+                  isRefereeAddress={userIsReferee}
+                />
+              ) : (
+                <FlagList
+                  flags={flags}
+                  winner={winner}
+                  voteOpen={voteOpen}
+                  onSelect={selectFlag}
+                />
+              )
+          ): (
+            <ChasingDots size={100} color={'white'} />
           )}
+
         </div>
       </div>
     )

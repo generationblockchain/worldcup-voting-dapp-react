@@ -47,6 +47,9 @@ contract GBWorldCupVotingGame {
     // We will use an array of bytes32 instead to store the list of teams
     // available for voting.
     bytes32[] public teamNames;
+
+    // stores name of team that won the last round of the game, if any
+    bytes32 public lastWinningTeam;
   
     // max value = 255
     uint8 private gameIterationCounter;
@@ -67,19 +70,11 @@ contract GBWorldCupVotingGame {
     event GameStarted(uint8 gameIteration, address referee);
     event WinningTeamDeclared(uint8 gameIteration, bytes32 winningTeam);
     event YouAreAWinner(uint8 gameIteration, address indexed winnerAddress, uint amountWon);
-    event PayoutsCompleted(uint8 gameIteration);
+    event PayoutsCompleted(uint8 gameIteration, uint16 numWinners, uint totalWeiDistributed);
     event NewVote(uint8 gameIteration, address indexed voter, bytes32 teamName, uint voteBacking);
     
     event TeamStateUpdate(uint8 gameIteration, bytes32 teamName, uint16 votesForThisTeam, uint backingForThisTeam);
     event GameStateUpdate(uint8 gameIteration, uint16 totalVotesInGame, uint totalBackingInGame);
-
-    /*
-    event NewVote(
-        uint8 indexed gameIteration,                             // which game are we in
-        address indexed voter, bytes32 teamName,                // vote-specific stats
-        uint16 votesForThisTeam, uint backingForThisTeam,         // team specific stats after this vote
-        uint16 totalVotesInGame, uint totalBackingInGame          // overall game stats after this vote
-    );*/
     
     /* CONSTRUCTOR */
     constructor(bytes32[] _teamNames) public {
@@ -130,13 +125,7 @@ contract GBWorldCupVotingGame {
         
         totalNumVotes += 1;
         totalVoteBacking += _voteBackingInWei;
-
-        /*emit NewVote(
-            gameIterationCounter, 
-            _voter, _teamName,
-            uint16(teamVotes[_teamName].length), teamBackingInWei[_teamName],
-            totalNumVotes, totalVoteBacking                             // overall game stats after this vote
-        );*/
+    
         emit NewVote(gameIterationCounter, _voter, _teamName, _voteBackingInWei);
         emit TeamStateUpdate(gameIterationCounter, _teamName, uint16(teamVotes[_teamName].length), teamBackingInWei[_teamName]);
         emit GameStateUpdate(gameIterationCounter, totalNumVotes, totalVoteBacking);
@@ -171,8 +160,11 @@ contract GBWorldCupVotingGame {
 
         require(validTeamName(winningTeam), "nonexistent team selected as winner");
 
-        //update state and log event
+        //update contract state
         currentState = GameState.WinnerDeclared;
+        lastWinningTeam = winningTeam;
+
+        //log event
         emit WinningTeamDeclared(gameIterationCounter, winningTeam);
 
         //call internal function to pay out winners
@@ -236,7 +228,7 @@ contract GBWorldCupVotingGame {
 
         // log that payouts were completed so that listening web3 clients
         // can update their UI state
-        emit PayoutsCompleted(gameIterationCounter);
+        emit PayoutsCompleted(gameIterationCounter, uint16(winningVotes.length), totalWeiToBeSplit);
     }
     
     /* FUNCTIONS (CALLS) 
@@ -286,6 +278,10 @@ contract GBWorldCupVotingGame {
     // and use in our truffle scripts for educational purposes
     function getContractBalance() public view returns (uint) {
         return address(this).balance;
+    }
+
+    function getLastWinner() public view returns (bytes32) {
+        return lastWinningTeam;
     }
     
     function validTeamName(bytes32 _teamName) public view returns (bool) {

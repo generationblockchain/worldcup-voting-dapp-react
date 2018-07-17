@@ -27,7 +27,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: #0002;
+  background-color: rgba(0, 0, 0, 0.2);
   justify-content: space-between;
 }
 
@@ -78,7 +78,7 @@ body {
 
 .Question {
   color: #fff;
-  padding: 0 10px;
+  padding: 60px 10px 20px 10px;
   font-size: 34px;
   font-weight: 300;
   text-align: center;
@@ -155,6 +155,7 @@ body {
 .FlagListItem:hover {
   background: #ffffff26;
   border: 2px solid #ffffff80;
+  cursor: pointer;
 }
 
 .FlagListItemLost {
@@ -322,7 +323,7 @@ body {
   z-index: 1;
   width: 200px;
   height: 200px;
-  margin: 50px 0;
+  margin: 0px 0px 50px 0px;
   overflow: hidden;
   position: relative;
   border-radius: 10%;
@@ -420,7 +421,7 @@ body {
   z-index: 1;
   height: 120px;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .FlagDashItem {

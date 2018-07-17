@@ -56,7 +56,8 @@
     "react-icons": "^2.2.7",
     "react-overdrive": "^0.0.10",
     "react-particles-js": "^2.2.0",
-    "react-tooltip": "^3.6.1"
+    "react-tooltip": "^3.6.1",
+    "better-react-spinkit": "latest"
   },
   "scripts": {
     "start": "node scripts/start.js",

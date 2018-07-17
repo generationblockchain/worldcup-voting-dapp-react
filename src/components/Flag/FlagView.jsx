@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Overdrive from 'react-overdrive'
 import ReactTooltip from 'react-tooltip'
 
-import { getReferee } from '../../utils/tools'
+import { checkRefereeURL } from '../../utils/tools'
 
 import Remove from 'react-icons/lib/io/ios-close-empty'
 import Success from 'react-icons/lib/io/ios-checkmark-empty'
@@ -13,16 +13,20 @@ const actionStyles = (side, selected) => ({
 })
 
 class FlagView extends Component {
-  state = { amount: this.props.amount }
+  state = {
+    amount: this.props.amount,
+    isRefereeAddress: this.props.isRefereeAddress
+  }
 
   handleTick = () => {
     const { amount } = this.state
     const { voteFlag } = this.props
-    if (!getReferee()) voteFlag(amount)
+
+    if (!checkRefereeURL()) voteFlag(amount)
     else {
       // Set voteOpen to false
       // Replace to make team a winner...
-      this.props.voteFlag(this.state.amount)
+      this.props.voteFlag(this.state.amount, this.state.isRefereeAddress)
     }
   }
 
@@ -35,7 +39,7 @@ class FlagView extends Component {
   }
 
   render() {
-    const isReferee = getReferee()
+    const isRefereeURL = checkRefereeURL()
     const { flagSelected } = this.props
     const { voteFlag, removeFlag } = this.props
 
@@ -67,7 +71,7 @@ class FlagView extends Component {
             />
           </Overdrive>
 
-          {!isReferee ? (
+          {!isRefereeURL ? (
             <input
               data-tip
               type="text"
@@ -79,7 +83,7 @@ class FlagView extends Component {
             />
           ) : null}
 
-          {!isReferee ? (
+          {!isRefereeURL ? (
             <input
               disabled
               type="text"

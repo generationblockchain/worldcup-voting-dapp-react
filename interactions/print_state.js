@@ -36,6 +36,7 @@ async function fetchGameState(){
     STATE.totalBacking = (await instance.getTotalVoteBackingInWei()).toNumber();
     STATE.contractBalance = (await instance.getContractBalance()).toNumber();
     STATE.gameIteration = (await instance.getGameIteration()).toNumber();
+    STATE.lastWinner = web3.toAscii(await instance.getLastWinner()).replace(/\0/g, '');
 
     const possibleStates = ["AcceptingVotes", "WinnerDeclared", "PayoutsCompleted"];
     STATE.currentState = possibleStates[(await instance.getCurrentState()).toNumber()];
