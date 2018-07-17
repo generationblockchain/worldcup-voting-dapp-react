@@ -30,7 +30,7 @@ class Header extends React.Component {
                     Votes Received: <strong>{totalVotes || 0}</strong>
                 </p>
                 <p className="HeaderText">
-                    Total Stake: <strong>{parseFloat(totalStake).toFixed(3) || 0} ETH</strong>
+                    Total Stake: <strong>{totalStake.toFixed(3) || 0} ETH</strong>
                 </p>
             </div>
         ) : (

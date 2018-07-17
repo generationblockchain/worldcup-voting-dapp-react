@@ -21,7 +21,7 @@ class Flag extends React.Component {
     const isRefereeURL = checkRefereeURL()
     const userIsReferee = this.props.isRefereeAddress
     const { voteFlag, resetFlag, selectFlag, removeFlag, stateIsLoaded } = this.props
-    const { flags, winner, voteOpen, flagVoted, flagSelected } = this.props
+    const { flags, winner, voteOpen, flagVoted, flagSelected, totalStake } = this.props
 
     return (
       <div>
@@ -55,6 +55,7 @@ class Flag extends React.Component {
                 <FlagList
                   flags={flags}
                   winner={winner}
+                  totalStake={totalStake}
                   voteOpen={voteOpen}
                   onSelect={selectFlag}
                 />

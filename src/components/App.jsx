@@ -9,6 +9,8 @@ import Dashboard from './Dashboard/Dashboard'
 
 import { getCountryCode } from '../utils/countries'
 
+import _ from 'lodash'
+
 const flags = [
   { code: 'br', country: 'Brazil', amount: 0.0004 },
   { code: 'de', country: 'Germany', amount: 0.0007 },
@@ -29,18 +31,18 @@ class App extends React.Component {
     initialBlockNumber: -1,
 
     contractState: {
-        gameIteration: -1,
-        phaseOfGameplay: '',
-        voteOpen: true,
-        teamNames: [],
-        teamNamesAscii: [],
-        voteCounts: [],
-        voteBackings: [],
-        teamStats: [],
-        totalVotes: -1,
-        totalBacking: -1,
-        contractBalance: -1,
-        lastWinner: null
+      gameIteration: -1,
+      phaseOfGameplay: '',
+      voteOpen: true,
+      teamNames: [],
+      teamNamesAscii: [],
+      voteCounts: [],
+      voteBackings: [],
+      teamStats: [],
+      totalVotes: -1,
+      totalBacking: -1,
+      contractBalance: -1,
+      lastWinner: null
     },
 
     flags,
@@ -119,9 +121,9 @@ class App extends React.Component {
 
     // fetch accounts available, initialize this user's address on React state
     this.state.web3.eth.getAccounts((error, accounts) => {
-        console.log('My Address: ' + accounts[0])
-        this.setState({ myAccountAddress: accounts[0] })
-    });
+      console.log('My Address: ' + accounts[0])
+      this.setState({ myAccountAddress: accounts[0] })
+    })
 
     // Obtain a reference to the deployed contract.
     // using one of the two:
@@ -138,7 +140,7 @@ class App extends React.Component {
     // Store reference to this deployed contract in React state, for global consumption
     // and when that's done, initiate a sync between contract state and local state
     this.setState({ contractInstance: deployedContract }, async () => {
-        await this.syncContractStateWithLocal()
+      await this.syncContractStateWithLocal()
     })
 
     this.state.web3.eth.getBlockNumber((err, currentBlockNum) => {
@@ -147,7 +149,7 @@ class App extends React.Component {
 
       // start listening for events from a block number a little before
       // the current block on the blockchain
-      let startingBlock = (currentBlockNum > 100) ? currentBlockNum - 100 : 0;
+      let startingBlock = currentBlockNum > 100 ? currentBlockNum - 100 : 0
 
       console.log('Registering events...')
 
@@ -155,10 +157,10 @@ class App extends React.Component {
       // so the front-end can change UI state accordingly,
       // sending user back to overall voting screen
       let event_NewVote = deployedContract.NewVote(
-        {voter: this.state.myAccountAddress},
+        { voter: this.state.myAccountAddress },
         { fromBlock: startingBlock }
       )
-      
+
       // Only listen for Winner events where the winner is me
       // so the front-end can show Winner Modal
       let event_YouAreAWinner = deployedContract.YouAreAWinner(
@@ -180,12 +182,12 @@ class App extends React.Component {
         { fromBlock: startingBlock }
       )
       let event_TeamStateUpdate = deployedContract.TeamStateUpdate(
-          {},
-          { fromBlock: startingBlock }
+        {},
+        { fromBlock: startingBlock }
       )
       let event_GameStateUpdate = deployedContract.GameStateUpdate(
-          {},
-          { fromBlock: startingBlock }
+        {},
+        { fromBlock: startingBlock }
       )
 
       // will be emitted from contract when new vote happens
@@ -199,21 +201,19 @@ class App extends React.Component {
       event_WinningTeamDeclared.watch(this.handle_WinningTeamDeclared)
       event_PayoutsCompleted.watch(this.handle_PayoutsCompleted)
       event_YouAreAWinner.watch(this.handle_YouAreAWinner)
-
-
     })
   }
 
-//   initFlagsFromContractState = () => {
-//       if (!this.state.contractStateFetched) return false
+  //   initFlagsFromContractState = () => {
+  //       if (!this.state.contractStateFetched) return false
 
-//       this.setState({
-//           flagsFromState: this.state.contractState.teamStats.map(team_stat =>
-//             Object.assign({}, team_stat, {code: getCountryCode(countryName)})
-//         )
-//       })
+  //       this.setState({
+  //           flagsFromState: this.state.contractState.teamStats.map(team_stat =>
+  //             Object.assign({}, team_stat, {code: getCountryCode(countryName)})
+  //         )
+  //       })
 
-//   }
+  //   }
 
   syncContractStateWithLocal = async () => {
     if (!this.state.contractInstance) return
@@ -237,36 +237,54 @@ class App extends React.Component {
     CONTRACT_STATE.teamNames = await instance.getTeamNames()
 
     for (var teamBytes32 of CONTRACT_STATE.teamNames) {
-        const _votes = (await instance.getVoteCountForTeam(teamBytes32)).toNumber();
-        const _ether_stake = this.state.web3.fromWei((await instance.getVoteBackingInWeiForTeam(teamBytes32)).toNumber(), "ether")
-        const _ascii_name = this.state.web3.toAscii(teamBytes32).replace(/\0/g, '');
-        
-        CONTRACT_STATE.voteCounts.push(_votes)
-        CONTRACT_STATE.voteBackings.push(_ether_stake)
-        CONTRACT_STATE.teamNamesAscii.push(_ascii_name)
+      const _votes = (await instance.getVoteCountForTeam(
+        teamBytes32
+      )).toNumber()
+      const _ether_stake = this.state.web3.fromWei(
+        (await instance.getVoteBackingInWeiForTeam(teamBytes32)).toNumber(),
+        'ether'
+      )
+      const _ascii_name = this.state.web3
+        .toAscii(teamBytes32)
+        .replace(/\0/g, '')
 
-        CONTRACT_STATE.teamStats.push(
-            {
-                country: _ascii_name, 
-                votes: _votes, 
-                stake: parseFloat(_ether_stake),
-                code: getCountryCode(_ascii_name)
-            }
-        )
+      CONTRACT_STATE.voteCounts.push(_votes)
+      CONTRACT_STATE.voteBackings.push(_ether_stake)
+      CONTRACT_STATE.teamNamesAscii.push(_ascii_name)
+
+      CONTRACT_STATE.teamStats.push({
+        country: _ascii_name,
+        votes: _votes,
+        stake: parseFloat(_ether_stake),
+        code: getCountryCode(_ascii_name)
+      })
     }
 
     CONTRACT_STATE.totalVotes = (await instance.getTotalVoteCount()).toNumber()
-    CONTRACT_STATE.totalBacking = this.state.web3.fromWei((await instance.getTotalVoteBackingInWei()).toNumber(), "ether")
+    CONTRACT_STATE.totalBacking = parseFloat(
+      this.state.web3.fromWei(
+        (await instance.getTotalVoteBackingInWei()).toNumber(),
+        'ether'
+      )
+    )
     CONTRACT_STATE.contractBalance = (await instance.getContractBalance()).toNumber()
     CONTRACT_STATE.gameIteration = (await instance.getGameIteration()).toNumber()
 
-    const previous_winner = this.state.web3.toAscii(await instance.getLastWinner()).replace(/\0/g, '')
+    const previous_winner = this.state.web3
+      .toAscii(await instance.getLastWinner())
+      .replace(/\0/g, '')
 
     CONTRACT_STATE.lastWinner = {
-        country: previous_winner,
-        num_winners: 0, 
-        total_eth: 0,
-        code: getCountryCode(previous_winner)
+      country: previous_winner,
+      code: getCountryCode(previous_winner),
+      num_winners:
+        this.state.contractState.lastWinner != null
+          ? this.state.contractState.lastWinner.num_winners
+          : null,
+      amount_won:
+        this.state.contractState.lastWinner != null
+          ? this.state.contractState.lastWinner.amount_won
+          : null
     }
 
     const possibleStates = [
@@ -277,7 +295,7 @@ class App extends React.Component {
     let gameplayPhaseIndex = (await instance.getCurrentState()).toNumber()
 
     CONTRACT_STATE.phaseOfGameplay = possibleStates[gameplayPhaseIndex]
-    CONTRACT_STATE.voteOpen = (gameplayPhaseIndex == 0)
+    CONTRACT_STATE.voteOpen = gameplayPhaseIndex == 0
 
     this.setState({ contractState: CONTRACT_STATE, contractStateFetched: true })
 
@@ -286,14 +304,14 @@ class App extends React.Component {
   }
 
   handle_GameStarted = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
 
     // we are starting a new contract state fetch,
     // so reflect that on the UI
-    this.setState({contractStateFetched: false});
+    this.setState({ contractStateFetched: false })
 
     console.log('GameStarted event')
     console.log(result.args)
@@ -303,91 +321,138 @@ class App extends React.Component {
   }
 
   handle_NewVote = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('New Vote event')
     console.log(result.args)
 
     // extract game's iteration counter from this event
-    let eventGameIteration = result.args.gameIteration.c[0]
+    let eventGameIteration = result.args.gameIteration.toNumber()
 
     // reject this event if it pertains to a game that we are no longer playing.
     // this situation shouldn't arise. but we handle it just in case.
     if (eventGameIteration != this.state.contractState.gameIteration) return
 
-    // extract game state info from this events' logs
-    // let updatedTeam = result.args.teamName,
-    //   updatedTeamVotes = result.args.votesForThisTeam,
-    //   updatedTeamBacking = result.args.backingForThisTeam,
-    //   updatedTotalVotes = result.args.totalVotesInGame,
-    //   updatedTotalBacking = result.args.totalBackingInGame
-
     // @TODO(abhagi), take user back to home view since vote has been accepted
-
   }
 
   handle_TeamStateUpdate = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('Team State Update event')
     console.log(result.args)
+
+    // extract game's iteration counter from this event
+    let eventGameIteration = result.args.gameIteration.toNumber()
+
+    // reject this event if it pertains to a game that we are no longer playing.
+    // this situation shouldn't arise. but we handle it just in case.
+    if (eventGameIteration != this.state.contractState.gameIteration) return
+
+    const updatedCountry = this.state.web3
+      .toAscii(result.args.teamName)
+      .replace(/\0/g, '')
+    const updatedVotes = result.args.votesForThisTeam.toNumber()
+    const updatedBacking = this.state.web3.fromWei(
+      result.args.backingForThisTeam.toNumber(),
+      'ether'
+    )
+
+    // clone current team stats array from React state
+    let teamStatsClone = _.cloneDeep(this.state.contractState.teamStats)
+
+    // determine array index that needs to be udpated
+    let teamIndex = _.findIndex(teamStatsClone, { country: updatedCountry })
+
+    // make the update in cloned object
+    teamStatsClone[teamIndex].votes = updatedVotes
+    teamStatsClone[teamIndex].stake = parseFloat(updatedBacking)
+
+    this.setState({
+      contractState: {
+        ...this.state.contractState,
+        teamStats: teamStatsClone
+      }
+    })
   }
 
   handle_GameStateUpdate = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('Game State Update event')
     console.log(result.args)
+
+    // extract game's iteration counter from this event
+    let eventGameIteration = result.args.gameIteration.toNumber()
+
+    // reject this event if it pertains to a game that we are no longer playing.
+    // this situation shouldn't arise. but we handle it just in case.
+    if (eventGameIteration != this.state.contractState.gameIteration) return
+
+    const updatedTotalVotes = result.args.totalVotesInGame.toNumber()
+    const updatedTotalBacking = this.state.web3.fromWei(
+      result.args.totalBackingInGame.toNumber(),
+      'ether'
+    )
+
+    this.setState({
+      contractState: {
+        ...this.state.contractState,
+        totalVotes: updatedTotalVotes,
+        totalBacking: parseFloat(updatedTotalBacking)
+      }
+    })
   }
 
   handle_WinningTeamDeclared = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('WinningTeamDeclared event')
     console.log(result.args)
 
     // extract game's iteration counter from this event
-    let eventGameIteration = result.args.gameIteration.c[0]
+    let eventGameIteration = result.args.gameIteration.toNumber()
 
     // reject this event if it pertains to a game that we are no longer playing.
     // this situation shouldn't arise. but we handle it just in case.
     if (eventGameIteration != this.state.contractState.gameIteration) return
 
-    const winningCountry = this.state.web3.toAscii(result.args.winningTeam).replace(/\0/g, '')
+    const winningCountry = this.state.web3
+      .toAscii(result.args.winningTeam)
+      .replace(/\0/g, '')
 
     // set the winning team's name and country code on our local react state,
     // notice the syntax is a bit more complex since it's a nested state object
-    this.setState(
-        { contractState: 
-            { ...this.state.contractState, 
-                lastWinner: {
-                    country: winningCountry,
-                    code: getCountryCode(winningCountry)
-                }
-            } 
-        }
-    );
-
+    this.setState({
+      contractState: {
+        ...this.state.contractState,
+        lastWinner: {
+          country: winningCountry,
+          code: getCountryCode(winningCountry)
+        },
+        voteOpen: false
+      }
+    })
   }
 
   handle_YouAreAWinner = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('YouAreAWinner event')
     console.log(result.args)
 
     // extract game's iteration counter from this event
-    let eventGameIteration = result.args.gameIteration.c[0]
+    let eventGameIteration = result.args.gameIteration.toNumber()
 
     // reject this event if it pertains to a game that we are no longer playing.
     // this situation shouldn't arise. but we handle it just in case.
@@ -397,15 +462,15 @@ class App extends React.Component {
   }
 
   handle_PayoutsCompleted = (error, result) => {
-    if (error){
-        console.log(error);
-        return;    
+    if (error) {
+      console.log(error)
+      return
     }
     console.log('Payouts Completed:')
     console.log(result.args)
 
     // extract game's iteration counter from this event
-    let eventGameIteration = result.args.gameIteration.c[0]
+    let eventGameIteration = result.args.gameIteration.toNumber()
 
     // reject this event if it pertains to a game that we are no longer playing.
     // this situation shouldn't arise. but we handle it just in case.
@@ -413,17 +478,17 @@ class App extends React.Component {
 
     // set the winner on our local react state,
     // notice the syntax is a bit more complex since it's a nested state object
-    this.setState(
-        { contractState: 
-            { ...this.state.contractState, 
-                lastWinner: {
-                    ...this.state.contractState.lastWinner,
-                    num_winners: result.args.numWinners.c[0],
-                    amount_won: result.args.totalWeiDistributed.c[0]
-                }
-            } 
-        }
-    );
+    this.setState({
+      contractState: {
+        ...this.state.contractState,
+        lastWinner: {
+          ...this.state.contractState.lastWinner,
+          num_winners: result.args.numWinners.toNumber(),
+          amount_won: result.args.totalWeiDistributed.toNumber()
+        },
+        voteOpen: false
+      }
+    })
   }
 
   render() {
@@ -461,6 +526,7 @@ class App extends React.Component {
           removeFlag={this.removeFlag}
           selectFlag={this.selectFlag}
           stateIsLoaded={contractStateFetched}
+          totalStake={totalStake}
         />
 
         <Dashboard

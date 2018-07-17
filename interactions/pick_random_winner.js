@@ -1,43 +1,22 @@
 var WorldCupGame = artifacts.require("./GBWorldCupVotingGame.sol");
 
 module.exports = async function(callback) { 
+
     let teams = await getTeamNames();
-    
-    await submitRandomVote(teams);
 
-    console.log("\n");
+    let winner = getRandomTeamName(teams);
+    console.log(`\nDeclaring ${winner} as the winner!`);
+    await declareWinner(winner);
+
+    console.log("\n\n");
     console.log(await fetchGameState());
-    console.log("\n");
-
+    console.log("\n\n");
     callback();
-}
-
-function getRandomAccountIndex(){
-    return Math.floor(Math.random()*web3.eth.accounts.length);
 }
 
 function getRandomTeamName(options){
     return options[Math.floor(Math.random()*options.length)];
 }
-
-// between 0 ETH and 5 ETH (non-inclusive)
-function getRandomEtherAmount(){
-    return (Math.random()*5);
-}
-
-async function submitRandomVote(teams){
-    const fromAccountIndex = getRandomAccountIndex();
-    const fromAccount = web3.eth.accounts[fromAccountIndex];
-
-    const voteAmount = getRandomEtherAmount();
-    const voteForTeam = getRandomTeamName(teams);
-
-    console.log(`Account [${fromAccountIndex}] voted for ${voteForTeam}: ${voteAmount} ETH`);
-    await submitVote(voteForTeam, fromAccount, voteAmount);
-
-    return true;
-}
-
 
 function getTeamNames(){
     return WorldCupGame.deployed()
@@ -49,26 +28,27 @@ function getTeamNames(){
     });
 }
 
-
-function submitVote(teamName, voterAddress, etherAmount){
-
-    var voteBacking = web3.toWei(etherAmount, "ether");
-
+function declareWinner(teamName){
     return WorldCupGame.deployed()
     .then(function(instance){
-        return instance.voteForTeam(teamName, {from: voterAddress, value: voteBacking});
+        return instance.declareWinner(teamName, {from: web3.eth.accounts[0]});
     })
-    .then(function(result) {
-        console.log("\nSubmitted vote, transaction id: ");
+    .then(function(result){
+        console.log("winner declared, payouts done");
+        console.log("Transaction id: ");
         console.log(result.tx);
-        
         return true;
-
-    }).catch(function(e) {
-        console.log("ERROR submitting vote");
+    })
+    .catch(function(e) {
+        console.log("ERROR declaring winner");
         //console.log(e);
         return false;
     });
+}
+
+async function restartGame(){
+    let instance = await WorldCupGame.deployed();
+    await instance.restartGame({from: web3.eth.accounts[0]});
 }
 
 async function fetchGameState(){

@@ -4,7 +4,7 @@ import Overdrive from 'react-overdrive'
 
 class FlagList extends React.Component {
   render() {
-    const { winner, voteOpen } = this.props
+    const { winner, voteOpen, totalStake } = this.props
 
     return (
       <div className="FlagList">
@@ -38,8 +38,9 @@ class FlagList extends React.Component {
               <div className="FlagListTitle">{flag.country}</div>
               <div className="FlagListDescription">
                 {!voteOpen && winner.code === flag.code
-                    ? `${flag.votes} voters split ${flag.stake.toFixed(3)} ETH`
-                    : `${flag.votes} ${flag.votes == 1 ? 'vote' : 'votes'} | ${flag.stake.toFixed(3)} ETH`
+                    ? `${flag.votes} ${flag.votes ==1 ? 'voter won' : 'voters split'} ${totalStake.toFixed(3)} ETH`
+                    : `${flag.votes} ${flag.votes == 1 ? 'vote' : 'votes'}` 
+                        + (voteOpen ? ` | ${flag.stake.toFixed(3)} ETH` : ``)
                 }
               </div>
             </li>
