@@ -15,33 +15,37 @@ const actionStyles = (side, selected) => ({
 class FlagView extends Component {
   state = {
     amount: this.props.amount,
+    valid: true,
     isRefereeAddress: this.props.isRefereeAddress
   }
 
   handleTick = () => {
     const { amount } = this.state
-    const { voteFlag } = this.props
+    const { voteFlag, declareWinner } = this.props
 
-    if (!checkRefereeURL()) voteFlag(amount)
-    else {
-      // Set voteOpen to false
-      // Replace to make team a winner...
-      this.props.voteFlag(this.state.amount, this.state.isRefereeAddress)
+    if (!checkRefereeURL()){
+        if (this.state.valid) voteFlag(amount)
+    } else {
+      declareWinner()
     }
   }
 
   changeAmount = event => {
     const amount = event.target.value
     const isShort = amount.length < 10
-    const isValid = Number(amount) || Number(amount) === 0
 
-    if (isShort && isValid) this.setState({ amount })
+    const isBelowMax = Number(amount) <= 10
+    const isAboveMin = Number(amount) >= 0.001
+    const isNumber = Number(amount) || Number(amount) === 0
+    const valid = isNumber && isShort && isBelowMax && isAboveMin
+
+    if (isNumber && isShort) this.setState({ amount, valid })
   }
 
   render() {
     const isRefereeURL = checkRefereeURL()
     const { flagSelected } = this.props
-    const { voteFlag, removeFlag } = this.props
+    const { removeFlag } = this.props
 
     return (
       <div className="FlagView">
@@ -80,6 +84,7 @@ class FlagView extends Component {
               value={this.state.amount}
               className="FlagAmountTitle"
               onChange={this.changeAmount}
+              style={{ color: !this.state.valid ? 'red' : null }}
             />
           ) : null}
 
@@ -111,7 +116,7 @@ class FlagView extends Component {
             id="vote"
             type="button"
             className="FlagAction"
-            onClick={() => voteFlag(this.state.amount)}
+            onClick={this.handleTick}
           >
             Vote
           </button>

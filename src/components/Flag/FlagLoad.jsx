@@ -47,6 +47,11 @@ class FlagLoad extends Component {
   }
 
   render() {
+    const {
+        onReset,
+        viewOnEtherscan
+      } = this.props
+
     return (
       <div className="FlagLoad">
         <div id="container">
@@ -62,12 +67,21 @@ class FlagLoad extends Component {
         >
           Ethereum miners are busy mining your transaction!
         </div>
-        <div
-          className="FlagLoadBack"
-          onClick={this.props.onReset}
-          style={{ position: 'relative', zIndex: 1 }}
-        >
-          BACK TO VOTE
+        <div className="FlagLoadButtonBar">
+            <div
+            className="FlagLoadBack"
+            onClick={() => onReset(true)}
+            style={{ position: 'relative', zIndex: 1 }}
+            >
+            BACK TO GAME
+            </div>
+            <div
+            className="FlagLoadEtherscan"
+            onClick={viewOnEtherscan}
+            style={{ position: 'relative', zIndex: 1 }}
+            >
+            VIEW ON ETHERSCAN
+            </div>
         </div>
       </div>
     )

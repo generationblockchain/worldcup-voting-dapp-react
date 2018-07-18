@@ -42,16 +42,14 @@ class App extends React.Component {
       totalVotes: -1,
       totalBacking: -1,
       contractBalance: -1,
-      lastWinner: null
+      lastWinner: null,
+      refereeAddress: null
     },
 
-    flags,
     flagVoted: false,
     flagSelected: null,
-
-    dashOpen: false,
-    transactions: [],
-    winner: null
+    dashboardOpen: false,
+    pastTxns: []
   }
 
   selectFlag = flag => {
@@ -63,37 +61,63 @@ class App extends React.Component {
   }
 
   toggleDash = () => {
-    this.setState({ dashOpen: !this.state.dashOpen })
+    this.setState({ dashboardOpen: !this.state.dashboardOpen })
   }
 
-  resetFlag = () => {
-    this.setState({ dashOpen: false, flagVoted: false, flagSelected: null })
+  resetFlag = (showDash) => {
+    this.setState({
+      flagVoted: false,
+      flagSelected: null,
+      dashboardOpen: showDash
+    })
   }
 
-  voteFlag = amount => {
+  voteFlag = async (etherAmount) => {
+
+    const { flagSelected, pastTxns } = this.state
+
     // Perform async request with flag data...
+    const _txnId = await this.submitVote(flagSelected.country, etherAmount)
 
-    const { flagSelected, transactions } = this.state
-    const flag = Object.assign({}, flagSelected, {
-      amount: amount || flagSelected.amount
+    
+    const txnMetadata = Object.assign({}, flagSelected, {
+      amount: etherAmount,
+      txnId: _txnId
     })
 
     this.setState({
       flagVoted: true,
       flagSelected: null,
-      dashOpen: window.innerWidth > 982,
-      transactions: [flag].concat(transactions)
+      dashboardOpen: window.innerWidth > 982,
+      pastTxns: pastTxns.concat([txnMetadata]) // append to the end
     })
   }
 
-  componentDidMount() {
-    // Logic to fetch flag votes and stake
-    this.setState({
-      flags: this.state.flags.map(flag =>
-        Object.assign({}, flag, { votes: 5, stake: 1.3 })
-      )
-    })
+  declareWinner = () => {}
+
+  viewLatestTxnOnEtherscan = () => {
+    const lastTxnHash = this.state.pastTxns[this.state.pastTxns.length - 1].txnId
+    const url = `https://ropsten.etherscan.io/address/${lastTxnHash}`
+
+    window.open(url, "_blank")
   }
+
+  submitVote = async (teamName, etherAmount) => {
+    var voteBackingInWei = this.state.web3.toWei(etherAmount, 'ether')
+    var voterAddress = this.state.myAccountAddress
+
+    let tx_hash = await this.state.contractInstance.voteForTeam.sendTransaction(
+      teamName,
+      { from: voterAddress, value: voteBackingInWei, gas: 3000000 }
+    )
+
+    console.log('Txn hash: ')
+    console.log(tx_hash)
+
+    return tx_hash;
+  }
+
+  componentDidMount() {}
 
   componentWillMount() {
     // Get network provider and web3 instance.
@@ -204,17 +228,6 @@ class App extends React.Component {
     })
   }
 
-  //   initFlagsFromContractState = () => {
-  //       if (!this.state.contractStateFetched) return false
-
-  //       this.setState({
-  //           flagsFromState: this.state.contractState.teamStats.map(team_stat =>
-  //             Object.assign({}, team_stat, {code: getCountryCode(countryName)})
-  //         )
-  //       })
-
-  //   }
-
   syncContractStateWithLocal = async () => {
     if (!this.state.contractInstance) return
 
@@ -230,7 +243,8 @@ class App extends React.Component {
       totalVotes: -1,
       totalBacking: -1,
       contractBalance: -1,
-      lastWinner: null
+      lastWinner: null,
+      refereeAddress: null
     }
 
     let instance = this.state.contractInstance
@@ -297,6 +311,8 @@ class App extends React.Component {
     CONTRACT_STATE.phaseOfGameplay = possibleStates[gameplayPhaseIndex]
     CONTRACT_STATE.voteOpen = gameplayPhaseIndex == 0
 
+    CONTRACT_STATE.refereeAddress = await instance.getRefereeAddress()
+
     this.setState({ contractState: CONTRACT_STATE, contractStateFetched: true })
 
     console.log('\nFETCHED + SYNCED CONTRACT STATE')
@@ -310,8 +326,15 @@ class App extends React.Component {
     }
 
     // we are starting a new contract state fetch,
-    // so reflect that on the UI
-    this.setState({ contractStateFetched: false })
+    // so reflect that on the UI.
+    // also clear out any past state for voting and transactions
+    this.setState({ 
+        contractStateFetched: false, 
+        pastTxns: [],
+        flagVoted: false,
+        flagSelected: null,
+        dashboardOpen: false,
+    })
 
     console.log('GameStarted event')
     console.log(result.args)
@@ -335,7 +358,14 @@ class App extends React.Component {
     // this situation shouldn't arise. but we handle it just in case.
     if (eventGameIteration != this.state.contractState.gameIteration) return
 
-    // @TODO(abhagi), take user back to home view since vote has been accepted
+    // Take user back to home view since vote has been accepted, if he's not already there.
+    // after waiting 2 seconds, just to fake a more realistic block validation time
+
+    if (this.state.flagVoted){
+        setTimeout(() => {
+            this.resetFlag(true)
+        }, 4000)
+    }
   }
 
   handle_TeamStateUpdate = (error, result) => {
@@ -493,18 +523,21 @@ class App extends React.Component {
 
   render() {
     const {
-      dashOpen,
+      dashboardOpen,
       flagVoted,
       flagSelected,
-      transactions,
-      contractStateFetched
+      pastTxns,
+      contractStateFetched,
+      contractState
     } = this.state
 
-    const totalVotes = this.state.contractState.totalVotes
-    const totalStake = this.state.contractState.totalBacking
-    const voteOpen = this.state.contractState.voteOpen
-    const flags = this.state.contractState.teamStats
-    const winner = this.state.contractState.lastWinner
+    const totalVotes = contractState.totalVotes
+    const totalStake = contractState.totalBacking
+    const voteOpen = contractState.voteOpen
+    const flags = contractState.teamStats
+    const winner = contractState.lastWinner
+    const isReferee =
+      this.state.myAccountAddress == contractState.refereeAddress
 
     return (
       <div className="App">
@@ -525,13 +558,16 @@ class App extends React.Component {
           resetFlag={this.resetFlag}
           removeFlag={this.removeFlag}
           selectFlag={this.selectFlag}
+          declareWinner={this.declareWinner}
+          viewOnEtherscan={this.viewLatestTxnOnEtherscan}
+          isRefereeAddress={isReferee}
           stateIsLoaded={contractStateFetched}
           totalStake={totalStake}
         />
 
         <Dashboard
-          isOpen={dashOpen}
-          transactions={transactions}
+          isOpen={dashboardOpen}
+          transactions={pastTxns}
           toggleDash={this.toggleDash}
         />
       </div>

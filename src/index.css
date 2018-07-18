@@ -304,17 +304,32 @@ body {
   text-align: center;
 }
 
+.FlagLoadButtonBar {
+    width: auto;
+    display: flex;
+}
+
 .FlagLoadBack {
   color: #fffa;
   padding: 10px;
-  margin: 20px 0;
+  margin: 20px 5px 20px 0px;
   cursor: pointer;
   font-size: 20px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.FlagLoadBack:hover {
+.FlagLoadEtherscan {
+    color: #fffa;
+    padding: 10px;
+    margin: 20px 0px 20px 5px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+.FlagLoadBack:hover, .FlagLoadEtherscan:hover {
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
 }

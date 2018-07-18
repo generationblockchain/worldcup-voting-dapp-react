@@ -25,12 +25,12 @@ class Dashboard extends React.Component {
           >
             {this.props.transactions.length ? (
               <ul className="FlagList FlagDash">
-                {this.props.transactions.map((flag, index) => (
+                {this.props.transactions.map((txn, index) => (
                   <li
                     key={index}
                     className="FlagListItem FlagDashItem"
                     onClick={() =>
-                      window.open('https://etherscan.io/', '_blank')
+                      window.open(`https://ropsten.etherscan.io/address/${txn.txnId}`, '_blank')
                     }
                   >
                     <div>
@@ -38,15 +38,15 @@ class Dashboard extends React.Component {
                         className="FlagListImage FlagDashImage"
                         style={{
                           backgroundImage: `url(${require(`flag-icon-css/flags/1x1/${
-                            flag.code
+                            txn.code
                           }.svg`)})`
                         }}
                       />
                     </div>
                     <div>
-                      <div className="FlagListTitle">{flag.country}</div>
+                      <div className="FlagListTitle">{txn.country}</div>
                       <div className="FlagListDescription">
-                        {flag.amount} ETH
+                        {txn.amount} ETH
                       </div>
                     </div>
                   </li>

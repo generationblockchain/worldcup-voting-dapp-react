@@ -18,10 +18,26 @@ import {
 
 class Flag extends React.Component {
   render() {
+    const DEFAULT_VOTE_STAKE = 0.5
     const isRefereeURL = checkRefereeURL()
     const userIsReferee = this.props.isRefereeAddress
-    const { voteFlag, resetFlag, selectFlag, removeFlag, stateIsLoaded } = this.props
-    const { flags, winner, voteOpen, flagVoted, flagSelected, totalStake } = this.props
+    const {
+      voteFlag,
+      resetFlag,
+      selectFlag,
+      removeFlag,
+      declareWinner,
+      viewOnEtherscan,
+      stateIsLoaded
+    } = this.props
+    const {
+      flags,
+      winner,
+      voteOpen,
+      flagVoted,
+      flagSelected,
+      totalStake
+    } = this.props
 
     return (
       <div>
@@ -40,30 +56,41 @@ class Flag extends React.Component {
 
         {/* Main */}
         <div className="Flag">
-          { stateIsLoaded ? (
-              flagVoted ? (
-                <FlagLoad onReset={resetFlag} />
-              ) : flagSelected ? (
-                <FlagView
-                  voteFlag={voteFlag}
-                  removeFlag={removeFlag}
-                  flagSelected={flagSelected}
-                  amount={flagSelected.amount}
-                  isRefereeAddress={userIsReferee}
-                />
-              ) : (
-                <FlagList
-                  flags={flags}
-                  winner={winner}
-                  totalStake={totalStake}
-                  voteOpen={voteOpen}
-                  onSelect={selectFlag}
-                />
-              )
-          ): (
-            <ChasingDots size={100} color={'white'} />
-          )}
-
+            {stateIsLoaded ? (
+                // if state is loaded
+                flagVoted ? (
+                    // IF a flag was just voted for,
+                    // show the "ethereum miners are mining your txn" state
+                    <FlagLoad 
+                    onReset={resetFlag} 
+                    viewOnEtherscan={viewOnEtherscan}
+                    />
+                ) : flagSelected ? (
+                    // ELSE IF a flag was just selected
+                    // show the "ethereum miners are mining your txn" state
+                    <FlagView
+                    voteFlag={voteFlag}
+                    declareWinner={declareWinner}
+                    removeFlag={removeFlag}
+                    flagSelected={flagSelected}
+                    amount={DEFAULT_VOTE_STAKE}
+                    isRefereeAddress={userIsReferee}
+                    />
+                ) : (
+                    // ELSE display our list/grid of flags
+                    <FlagList
+                    flags={flags}
+                    winner={winner}
+                    totalStake={totalStake}
+                    voteOpen={voteOpen}
+                    onSelect={selectFlag}
+                    isRefereeAddress={userIsReferee}
+                    />
+                )
+            ) : (
+                // if state is not loaded
+                <ChasingDots size={100} color={'white'} />
+            )}
         </div>
       </div>
     )

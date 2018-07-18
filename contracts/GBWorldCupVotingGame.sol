@@ -245,6 +245,10 @@ contract GBWorldCupVotingGame {
         return currentState;
     }
 
+    function getRefereeAddress() public view returns (address) {
+        return gameReferee;
+    }
+
     function getTeamNames() public view returns (bytes32[]) {
         return teamNames;
     }
